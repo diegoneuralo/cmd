@@ -1,0 +1,33 @@
+html{
+	
+}
+
+body{
+	background-color: #454342;
+}
+
+.ui-widget,.ui-widget .ui-widget {
+	font-size: 12px !important;
+}
+
+.ui-breadcrumb {
+	display: block;
+}
+
+.ui-menubar {
+	display: block;
+	z-index: 10;
+}
+
+.panelGrid tr, .panelGrid td {
+    border: none;
+}
+
+.borderRadius-none{
+	border-radius:0 !important;
+}
+
+.panelLogin{
+	width:22%;
+	margin:0 auto;	
+}

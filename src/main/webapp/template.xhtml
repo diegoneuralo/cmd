@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+		<h:head>
+			<ui:insert name="javascriptHeader"></ui:insert>
+			<f:view locale="#{languageBean.locale}" />
+			<f:facet name="first">
+		        <meta http-equiv="X-UA-Compatible" content="EmulateIE8" />
+		        <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+		        <title><ui:insert name="title">title</ui:insert></title>
+		    </f:facet>
+			<link type="text/css" rel="stylesheet" href="#{request.contextPath}/resources/css/style.css" />
+			<script src="#{request.contextPath}/resources/js/Highcharts-3.0.6/js/stock/highstock.js"></script>
+			<script src="#{request.contextPath}/resources/js/Highcharts-3.0.6/js/highcharts.js"></script>
+			<script src="#{request.contextPath}/resources/js/Highcharts-3.0.6/js/highcharts-more.js"></script>
+			<script src="#{request.contextPath}/resources/js/Highcharts-3.0.6/js/modules/exporting.js"></script>
+		</h:head>
+		<h:body style="margin:0; padding:0;">
+			<ui:include src="menu.xhtml" />
+			<p:panel footer="User:">	        
+		        <ui:insert name="header">Add your header here or delete to use the default</ui:insert>
+		    	<ui:insert name="content">Add your content here or delete to use the default</ui:insert>
+		    	<ui:insert name="footer"></ui:insert> 
+		  	</p:panel>
+		</h:body>
+</html>

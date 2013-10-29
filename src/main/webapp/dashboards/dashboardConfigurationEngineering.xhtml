@@ -1,0 +1,183 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:wc="http://googlecode.com/wickedcharts">
+
+<ui:composition template="#{pageContext.request.contextPath}/template.xhtml">
+	<ui:define name="title">
+		Dashboard - Configuration Engineering
+	</ui:define>
+	<ui:define name="javascriptHeader">
+		<script type="text/javascript">
+			
+		</script>
+	</ui:define>
+	<ui:define name="header">
+	    <p:breadCrumb styleClass="borderRadius-none">  
+		    <p:menuitem value="Home" url="#{pageContext.request.contextPath}/begin.jsf" />  
+		    <p:menuitem value="Dashboards" url="#{pageContext.request.contextPath}/gtn/index.jsf" />  
+		    <p:menuitem value="Configuration Engineering" url="#{pageContext.request.contextPath}/gtn/project.jsf" />
+		</p:breadCrumb>  
+	</ui:define>
+	<ui:define name="content">
+		<p:tabView id="tabCenter" effect="fade">
+			<div>
+				
+			</div>
+			<p:tab title="Audits Visibilities">
+				<h:form prependId="false">
+					<p:panel header="Filters">
+						<h:panelGrid columns="6" >
+							<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5" columnClasses="label, column">
+								<h:outputText value="Program" />
+				        		<p:selectOneMenu id="program" styleClass="widthSelect">
+				        			<f:selectItem itemLabel="AEW" itemValue="" />  
+						            <f:selectItem itemLabel="A1M" itemValue="" /> 
+						            <f:selectItem itemLabel="AF1M" itemValue="" />
+						            <f:selectItem itemLabel="AMX" itemValue="" />
+						            <f:selectItem itemLabel="F5BR" itemValue="" />
+						            <f:selectItem itemLabel="0314" itemValue="" /> 
+						            <f:selectItem itemLabel="0312" itemValue="" /> 
+						            <f:selectItem itemLabel="0190PR" itemValue="" />
+						            <f:selectItem itemLabel="0111" itemValue="" /> 
+						            <f:selectItem itemLabel="0110" itemValue="" />
+						        </p:selectOneMenu>
+				        	</h:panelGrid>
+				        	<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5" columnClasses="label, column">
+								<h:outputText value="Model" />
+				        		<p:selectOneMenu id="model" styleClass="widthSelect"> 
+				        			<f:selectItem itemLabel="Everything" itemValue="" /> 
+						            <f:selectItem itemLabel="Biposto" itemValue="" /> 
+						            <f:selectItem itemLabel="Monoposto" itemValue="" /> 
+						        </p:selectOneMenu>
+				        	</h:panelGrid>
+				        	<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5" columnClasses="label, column">
+								<h:outputText value="DBT" />
+				        		<p:selectOneMenu id="dbt" styleClass="widthSelect"> 
+				        			<f:selectItem itemLabel="Everything" itemValue="" /> 
+						            <f:selectItem itemLabel="A1M02" itemValue="" /> 
+						            <f:selectItem itemLabel="A1M03" itemValue="" /> 
+						        </p:selectOneMenu>
+				        	</h:panelGrid>
+				        	<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">  
+						        <h:outputText value="Viewing by period:" />  
+						        <p:selectOneButton>  
+						            <f:selectItem itemLabel="Weekly" itemValue="1" />  
+						            <f:selectItem itemLabel="Monthly" itemValue="2" />  
+						            <f:selectItem itemLabel="Yearly" itemValue="3" />  
+						        </p:selectOneButton>
+						    </h:panelGrid> 
+				        	<h:panelGrid columns="4" style="margin-bottom:10px" cellpadding="5">
+								 <h:outputText value="Initial Date: " />
+						         <p:calendar id="initialDate" pattern="dd/MM/yy" effect="drop"/>  
+						         <h:outputText value="End Date:"/>
+						         <p:calendar id="endDate" pattern="dd/MM/yy" effect="drop"/> 
+				        	</h:panelGrid>
+				        	<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+				        		<p:commandButton value="Generate" onclick="dlg1.show();"/>
+				        	</h:panelGrid>
+			        	</h:panelGrid>
+		        	</p:panel>
+        		</h:form>
+        		<p:dialog id="basicDialog1" header="History of Items without Component - Last 6 Months" widgetVar="dlg1" style="width:50%;">  
+					 <p:panel header="Items without Component" style="width:100%;" toggleable="true"> 
+						<wc:chart id="chartItemsWithoutComponent" options="#{dashboardConfigurationEngineering.itemsWithoutComponent}" />
+					</p:panel>  
+				</p:dialog>
+				<p:dialog id="basicDialog2" header="History of PSA - Last 6 Months" widgetVar="dlg2" style="width:50%;">  
+					 <p:panel header="PSA" style="width:100%;" toggleable="true"> 
+						<wc:chart id="chartPsa" options="#{dashboardConfigurationEngineering.psa}" />
+					</p:panel>  
+				</p:dialog>
+				<p:dialog id="basicDialog3" header="History of GFE Not Found - Last 6 Months" widgetVar="dlg3" style="width:50%;">  
+					 <p:panel header="GFE Not Found" style="width:100%;" toggleable="true"> 
+						<wc:chart id="chartGfeNotFound" options="#{dashboardConfigurationEngineering.gfeNotFound}" />
+					</p:panel>  
+				</p:dialog>
+				<p:dialog id="basicDialog4" header="History of Items G without R - Last 6 Months" widgetVar="dlg4" style="width:50%;">  
+					 <p:panel header="Items G without R" style="width:100%;" toggleable="true"> 
+						
+					</p:panel>  
+				</p:dialog>
+				<p:dialog id="basicDialog5" header="History of Items R without RD - Last 6 Months" widgetVar="dlg5" style="width:50%;">  
+					 <p:panel header="Items R without RD" style="width:100%;" toggleable="true"> 
+						
+					</p:panel>  
+				</p:dialog>
+				<p:dialog id="basicDialog6" header="History of SAP released and not released VPM - Last 6 Months" widgetVar="dlg6" style="width:50%;">  
+					 <p:panel header="SAP released and not released VPM" style="width:100%;" toggleable="true"> 
+						
+					</p:panel>  
+				</p:dialog>
+				<p:dialog id="basicDialog7" header="History of VPM released and not released SAP - Last 6 Months" widgetVar="dlg7" style="width:50%;">  
+					 <p:panel header="VPM released and not released SAP" style="width:100%;" toggleable="true"> 
+						
+					</p:panel>  
+				</p:dialog>
+				<h:panelGrid columns="2" columnClasses="column1, column2">
+					<p:panel header="Status of Audits" style="width:100%;" toggleable="true"> 
+						<wc:chart id="chart" options="#{dashboardConfigurationEngineering.statusOfAudits}" />
+					</p:panel>
+				</h:panelGrid>
+			</p:tab>
+			<p:tab title="Cell 530 - Visibilities">
+				<h:form prependId="false">
+					<p:panel header="Filters">
+						<h:panelGrid columns="6" >
+							<h:panelGrid columns="4" style="margin-bottom:10px" cellpadding="5">
+								 <h:outputText value="Initial Date: " />
+						         <p:calendar id="initialDate1" pattern="dd/MM/yy" effect="drop"/>  
+						         <h:outputText value="End Date:"/>
+						         <p:calendar id="endDate1" pattern="dd/MM/yy" effect="drop"/> 
+				        	</h:panelGrid>
+				        	<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">  
+						        <h:outputText value="Viewing by period:" />  
+						        <p:selectOneButton>  
+						            <f:selectItem itemLabel="Weekly" itemValue="1" />  
+						            <f:selectItem itemLabel="Monthly" itemValue="2" />  
+						            <f:selectItem itemLabel="Yearly" itemValue="3" />  
+						        </p:selectOneButton>
+						    </h:panelGrid> 
+				        	<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+				        		<p:commandButton value="Generate"/>
+				        	</h:panelGrid>
+			        	</h:panelGrid>
+		        	</p:panel>
+        		</h:form>
+				<h:panelGrid columns="2" columnClasses="column1, column2">
+					<p:panel header="Control Tower" style="width:100%;" toggleable="true"> 
+						<wc:chart id="chartControlTower" options="#{dashboardConfigurationEngineering.itemsWithoutComponent}" />
+					</p:panel>
+					<p:panel header="MFA" style="width:100%;" toggleable="true"> 
+						<wc:chart id="chartMfa" options="#{dashboardConfigurationEngineering.itemsWithoutComponent}" />
+					</p:panel>
+					<p:panel header="QCPC" style="width:100%;" toggleable="true"> 
+						<wc:chart id="chartQcpc" options="#{dashboardConfigurationEngineering.itemsWithoutComponent}" />
+					</p:panel>
+					<p:panel header="5S" style="width:100%;" toggleable="true"> 
+						<wc:chart id="chart5s" options="#{dashboardConfigurationEngineering.itemsWithoutComponent}" />
+					</p:panel>
+					<p:panel header="Training" style="width:100%;" toggleable="true"> 
+						<wc:chart id="chartTraining" options="#{dashboardConfigurationEngineering.itemsWithoutComponent}" />
+					</p:panel>
+					<p:panel header="DMAIC" style="width:100%;" toggleable="true"> 
+						<wc:chart id="chartDmaic" options="#{dashboardConfigurationEngineering.itemsWithoutComponent}" />
+					</p:panel>
+					<p:panel header="Improvement Projects" style="width:100%;" toggleable="true"> 
+						<wc:chart id="chartImprovementProjects" options="#{dashboardConfigurationEngineering.improvementsProjects}" />
+					</p:panel>
+				</h:panelGrid>
+			</p:tab>
+		</p:tabView>
+	</ui:define>
+	<ui:define name="footer">
+	 
+	</ui:define>
+</ui:composition>
+</html>

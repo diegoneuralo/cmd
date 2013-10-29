@@ -1,0 +1,55 @@
+html{
+	
+}
+
+body{
+	border-top:10px solid #0085B2;
+	border-bottom:10px solid #0085B2;
+	margin:0;
+}
+
+.ui-widget,.ui-widget .ui-widget {
+	font-size: 12px !important;
+}
+
+.ui-breadcrumb {
+	display: block;
+}
+
+.ui-menubar {
+	display: block;
+	z-index: 10;
+}
+
+.column1, .column2{
+	min-width:700px;
+	padding-right:15px;
+	padding-top:10px;
+}
+
+.panelGrid tr, .panelGrid td {
+    border: none;
+}
+
+.borderRadius-none{
+	border-radius:0 !important;
+}
+
+.labelStrong{
+	font-weight: bold;
+}
+.widthSelect{
+	min-width:142px !important;
+}
+
+.widthSelectFixed{
+	width:142px !important;
+}
+
+.ui-tooltip{
+	background: #FCEC93 !important;
+}
+
+.formDasboardUtilization{
+	width:100% !important;
+}

@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<f:view contentType="text/html" locale="#{languageBean.locale}">
+        <h:head>
+            <f:facet name="first">
+                <meta http-equiv="X-UA-Compatible" content="EmulateIE8" />
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>#{msg.title} - #{msg.home}</title>
+            </f:facet>
+
+           <link type="text/css" rel="stylesheet" href="#{request.contextPath}/resources/css/style.css" />
+
+            <style type="text/css">
+                .ui-layout-north {
+                    z-index:20 !important;
+                    overflow:visible !important;
+                }
+
+                .ui-layout-north .ui-layout-unit-content {
+                    overflow:visible !important;
+                }
+                
+                .gadgets{
+					margin:5px;
+					padding:0;
+					text-align: center;
+					min-width: 128px;
+					background: #424548;
+				}
+				
+				.gadgets:hover{
+					cursor:pointer;
+					background: #fff;
+				}
+				
+				.gadgets .ui-panel-footer{
+					text-align: center;
+					background: #fff;
+					font-weight: bold;
+					color: #424548;					
+				}
+				
+				.gadgets:hover .ui-panel-footer{
+					background: #0085B2;
+					color: #fff;					
+				}
+            </style>
+            <script type="text/javascript">	
+	           
+			</script>
+        </h:head>
+        <h:body>
+            <p:layout fullPage="true" id="layoutId">
+
+                <p:layoutUnit id="top" position="north" size="70">
+						<ui:include src="menu.xhtml" />
+					    <p:breadCrumb styleClass="borderRadius-none">  
+						    <p:menuitem value="#{msg.home}" url="#" />
+						</p:breadCrumb>  
+                </p:layoutUnit>
+
+                <p:layoutUnit id="bottom" position="south" size="70">
+                	<h:graphicImage url="#{pageContext.request.contextPath}/resources/images/mini_logo_flyme.png" id="logotipo" style="margin:0;"/> 
+                </p:layoutUnit>
+
+                <p:layoutUnit id="right" position="east" size="250" header="#{msg.information}" resizable="true" collapsible="true"
+                              style="text-align:center" collapsed="true">
+                   <p:commandLink value="15/02/2013 - Acesse os tutoriais sobre as funcionalidades do Flyme!" onclick="dlgMessageCenter.show();"/>
+                   <p:separator />
+                   <p:commandLink value="15/02/2013 - Acesse os tutoriais sobre as funcionalidades do Flyme!" onclick="dlgMessageCenter.show();"/>
+                   <p:separator />
+                   <p:commandLink value="15/02/2013 - Acesse os tutoriais sobre as funcionalidades do Flyme!" onclick="dlgMessageCenter.show();"/>
+                   <p:separator />
+                   <p:commandLink value="15/02/2013 - Acesse os tutoriais sobre as funcionalidades do Flyme!" onclick="dlgMessageCenter.show();"/>
+
+                </p:layoutUnit>
+
+                <p:layoutUnit id="center" position="center">
+                	<h:panelGrid columns="8">
+	                	<p:panel styleClass="gadgets" footer="#{msg.availability}">
+	                		<h:outputLink value="gtn/dashboards/availability.jsf" title="Dashboard of Availability and Unavailability"><p:graphicImage value="#{pageContext.request.contextPath}/resources/images/icons/Chart.png" width="64" height="64" /></h:outputLink>              	
+	                	</p:panel>
+	                	<p:panel styleClass="gadgets" footer="#{msg.utilization}">
+	                		<h:outputLink value="#" title="Dashboard of Aircraft Utilization"><p:graphicImage value="#{pageContext.request.contextPath}/resources/images/icons/Chart.png" width="64" height="64" /></h:outputLink>                	
+	                	</p:panel>
+	                	<p:panel styleClass="gadgets" footer="#{msg.componentPerformance}">
+	                		<h:outputLink value="gtn/dashboards/availability.jsf" title="Dashboard of Component Performance and Removals"><p:graphicImage value="#{pageContext.request.contextPath}/resources/images/icons/Chart.png" width="64" height="64" /></h:outputLink>            	
+	                	</p:panel>
+	                	<p:panel styleClass="gadgets" footer="#{msg.aircraftManagement}">
+	                		<h:outputLink value="#" title="Dashboard of Aircraft Management"><p:graphicImage value="#{pageContext.request.contextPath}/resources/images/icons/Chart.png" width="64" height="64" /></h:outputLink>               	
+	                	</p:panel>
+	                	<p:panel styleClass="gadgets" footer="#{msg.operationalReliability}">
+	                		<h:outputLink value="#" title="Dashboard of Operational Reliability"><p:graphicImage value="#{pageContext.request.contextPath}/resources/images/icons/Chart.png" width="64" height="64" /></h:outputLink>                	
+	                	</p:panel>
+	                	<p:panel styleClass="gadgets" footer="#{msg.systemLogisticReliability}">
+	                		<h:outputLink value="#" title="Dashboard of System Logistic Reliability"><p:graphicImage value="#{pageContext.request.contextPath}/resources/images/icons/Chart.png" width="64" height="64" /></h:outputLink>                	
+	                	</p:panel>
+	                	<p:panel styleClass="gadgets" footer="#{msg.warranty}">
+	                		<h:outputLink value="#" title="Warranty Control"><p:graphicImage value="#{pageContext.request.contextPath}/resources/images/icons/List.png" width="64" height="64" /></h:outputLink>                	
+	                	</p:panel>
+	                	<p:panel styleClass="gadgets" footer="#{msg.controlData}">
+	                		<h:outputLink value="#" title="Control Data"><p:graphicImage value="#{pageContext.request.contextPath}/resources/images/icons/Control Panel.png" width="64" height="64" /></h:outputLink>             	
+	                	</p:panel>
+	                	<p:panel styleClass="gadgets" footer="#{msg.mapFleet}">
+	                		<h:outputLink value="gtn/dashboards/map/mapfull.jsf" title="Map Fleet"><p:graphicImage value="#{pageContext.request.contextPath}/resources/images/icons/Globe.png" width="64" height="64" /></h:outputLink>               	
+	                	</p:panel>
+	                	<p:panel styleClass="gadgets" footer="#{msg.topIssues}">
+	                		<h:outputLink value="#" title="Top Issues"><p:graphicImage value="#{pageContext.request.contextPath}/resources/images/icons/List.png" width="64" height="64" /></h:outputLink>             	
+	                	</p:panel>
+	                	<p:panel styleClass="gadgets" footer="#{msg.reliabilityReports}">
+	                		<h:outputLink value="#" title="Reliability Reports"><p:graphicImage value="#{pageContext.request.contextPath}/resources/images/icons/File.png" width="64" height="64" /></h:outputLink>                	
+	                	</p:panel>
+	                	<p:panel styleClass="gadgets" footer="#{msg.payloadData}">
+	                		<h:outputLink value="gtn/dashboards/map/mapfull.jsf" title="Payload Data"><p:graphicImage value="#{pageContext.request.contextPath}/resources/images/icons/Sign-up.png" width="64" height="64" /></h:outputLink>                	
+	                	</p:panel>
+	                	<p:panel styleClass="gadgets" footer="#{msg.dmc}">
+	                		<h:outputLink value="#" title="Direct Maintance Coast"><p:graphicImage value="#{pageContext.request.contextPath}/resources/images/icons/currency.png" width="64" height="64" /></h:outputLink>                	
+	                	</p:panel>
+	                	<p:panel styleClass="gadgets" footer="#{msg.lcc}">
+	                		<h:outputLink value="#" title="Life Cicle Coast"><p:graphicImage value="#{pageContext.request.contextPath}/resources/images/icons/Recycle.png" width="64" height="64" /></h:outputLink>              	
+	                	</p:panel>
+                	</h:panelGrid>
+                	<h:panelGrid columns="2">
+	                	<p:graphicImage value="#{pageContext.request.contextPath}/resources/images/info_map.png" />
+	                	<p:graphicImage value="#{pageContext.request.contextPath}/resources/images/info-pie.png" />
+                	</h:panelGrid>
+                </p:layoutUnit>
+
+            </p:layout>
+            <p:dialog header="Message Center" widgetVar="dlgMessageCenter" modal="true" minHeight="300">
+                <h:outputText value="Acesse os tutoriais sobre as funcionalidades do Flyme!" />
+            </p:dialog>
+            
+            <!-- loading quando houver alguma requisição ajax -->
+			<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>              
+			<p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" style="background:#D7D7D7; padding:0; margin:0;">  
+			    <p:graphicImage value="#{pageContext.request.contextPath}/resources/images/loader-ajax.gif" alt="Loading"/>  
+			</p:dialog>
+			<!-- fim loading quando houver alguma requisição ajax -->			
+		</h:body>
+    </f:view>
+</html>
