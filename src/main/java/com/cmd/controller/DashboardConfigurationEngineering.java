@@ -56,7 +56,7 @@ public class DashboardConfigurationEngineering implements Serializable{
 		ChartOptions chartOptions = new ChartOptions();
 		options.setChartOptions(chartOptions.setType(SeriesType.COLUMN));
  
-		options.setTitle(new Title("Audits - A1M"));
+		options.setTitle(new Title("Status of Audits - A1M"));
  
 		options.setSubtitle(new Title("Status Of Audits - 2013"));
  
@@ -335,7 +335,7 @@ public class DashboardConfigurationEngineering implements Serializable{
 		ChartOptions chartOptions = new ChartOptions();
 		options.setChartOptions(chartOptions.setType(SeriesType.COLUMN));
  
-		options.setTitle(new Title("Cell 530 Visibilities"));
+		options.setTitle(new Title("Improvement Projects"));
  
 		options.setSubtitle(new Title("Improvement Projects - 2013"));
  

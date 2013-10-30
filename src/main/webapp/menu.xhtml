@@ -8,19 +8,10 @@
 	<h:form>
 		<p:menubar styleClass="borderRadius-none">
 			<p:menuitem value="#{msg.home}" url="#" icon="ui-icon-home" />
-
-			<p:submenu label="#{msg.managament}" icon="ui-icon-document">
-				<p:submenu label="Control Data" icon="ui-icon-contact">
-					<p:menuitem value="#{msg.topIssues}" url="#" />
-				</p:submenu>
-			</p:submenu>
 			<p:submenu label="#{msg.dashboard}" icon="ui-icon-contact">
-				<p:menuitem value="Main Dashboard" url="#" />
+				<p:menuitem value="Main Dashboard" url="#{pageContext.request.contextPath}/dashboards/dashboardMain.cmd" />
 				<p:menuitem value="Configuration Engineering" url="#{pageContext.request.contextPath}/dashboards/dashboardConfigurationEngineering.cmd" />	
 				<p:menuitem value="Change Management" url="#{pageContext.request.contextPath}/dashboards/dashboardChangeManagement.cmd" />			
-			</p:submenu>
-			<p:submenu label="#{msg.reporting}" icon="ui-icon-contact">
-				<p:menuitem value="#{msg.reliabilityReports}" url="#" />			
 			</p:submenu>
 			<p:submenu label="#{msg.settings}" icon="ui-icon-gear">
 				<p:submenu label="#{msg.privileges}" >

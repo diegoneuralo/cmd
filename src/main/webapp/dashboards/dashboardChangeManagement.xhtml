@@ -36,9 +36,9 @@
 						<h:panelGrid columns="6" >
 							<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5" columnClasses="label, column">
 								<h:outputText value="Program" />
-				        		<p:selectOneMenu id="program" styleClass="widthSelect">
+				        		<p:selectOneMenu id="program" value="A1M" styleClass="widthSelect">
 				        			<f:selectItem itemLabel="AEW" itemValue="" />  
-						            <f:selectItem itemLabel="A1M" itemValue="" /> 
+						            <f:selectItem itemLabel="A1M" itemValue="A1M" /> 
 						            <f:selectItem itemLabel="AF1M" itemValue="" />
 						            <f:selectItem itemLabel="AMX" itemValue="" />
 						            <f:selectItem itemLabel="F5BR" itemValue="" />
@@ -85,14 +85,14 @@
 			        	</h:panelGrid>
 		        	</p:panel>
         		</h:form>
-				<h:panelGrid columns="2" columnClasses="column1, column2">
-					<p:panel header="Number of new and revised EO's" style="width:100%;" toggleable="true"> 
+				<h:panelGrid columns="2">
+					<p:panel toggleable="true"> 
 						<wc:chart id="chart" options="#{dashboardBean.numberEOs}" />
 					</p:panel>
-					<p:panel header="Released EO's" style="width:100%;" toggleable="true"> 
+					<p:panel toggleable="true"> 
 						<wc:chart id="chartRelesedOEs" options="#{dashboardBean.relesedOEs}" />
 					</p:panel>			
-					<p:panel header="Delayed EO's" style="width:100%;" toggleable="true"> 
+					<p:panel toggleable="true"> 
 						<wc:chart id="chartDelayedEOs" options="#{dashboardBean.delayedEOs}" />
 					</p:panel>
 				</h:panelGrid>
@@ -103,9 +103,9 @@
 						<h:panelGrid columns="6" >
 							<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5" columnClasses="label, column">
 								<h:outputText value="Program" />
-				        		<p:selectOneMenu id="program1" styleClass="widthSelect">
+				        		<p:selectOneMenu id="program1" value="A1M" styleClass="widthSelect">
 				        			<f:selectItem itemLabel="AEW" itemValue="" />  
-						            <f:selectItem itemLabel="A1M" itemValue="" /> 
+						            <f:selectItem itemLabel="A1M" itemValue="A1M" /> 
 						            <f:selectItem itemLabel="AF1M" itemValue="" />
 						            <f:selectItem itemLabel="AMX" itemValue="" />
 						            <f:selectItem itemLabel="F5BR" itemValue="" />
@@ -152,18 +152,12 @@
 			        	</h:panelGrid>
 		        	</p:panel>
         		</h:form>
-				<h:panelGrid columns="2" columnClasses="column1, column2">	
-					<p:panel header="Modified by Document Type" style="width:100%;"> 
+				<h:panelGrid columns="2">	
+					<p:panel> 
 						<wc:chart id="chartChangeDocumentType" options="#{dashboardBean.changeDocumentType}" />
 					</p:panel>
-					<p:panel header="Release Curve Drawings" style="width:100%;"> 
+					<p:panel> 
 						<wc:chart id="chartReleaseCurveDrawing" options="#{dashboardBean.releaseCurveDrawing}" />
-					</p:panel>
-					<p:panel header="Release Drawings in OE's" style="width:100%;"> 
-						
-					</p:panel>
-					<p:panel header="Visibility Drawings Late" style="width:100%;"> 
-						
 					</p:panel>
 				</h:panelGrid>
 			</p:tab>
@@ -173,9 +167,9 @@
 						<h:panelGrid columns="6" >
 							<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5" columnClasses="label, column">
 								<h:outputText value="Program" />
-				        		<p:selectOneMenu id="program2" styleClass="widthSelect">
+				        		<p:selectOneMenu id="program2" value="A1M" styleClass="widthSelect">
 				        			<f:selectItem itemLabel="AEW" itemValue="" />  
-						            <f:selectItem itemLabel="A1M" itemValue="" /> 
+						            <f:selectItem itemLabel="A1M" itemValue="A1M" /> 
 						            <f:selectItem itemLabel="AF1M" itemValue="" />
 						            <f:selectItem itemLabel="AMX" itemValue="" />
 						            <f:selectItem itemLabel="F5BR" itemValue="" />
@@ -222,17 +216,17 @@
 			        	</h:panelGrid>
 		        	</p:panel>
         		</h:form>
-				<h:panelGrid columns="2" columnClasses="column1, column2">	
-					<p:panel header="Released Drawings - Impact on Production" style="width:100%;"> 
+				<h:panelGrid columns="2">	
+					<p:panel header="Released Drawings - Impact on Production"> 
 						<wc:chart id="chartReleasedDrawing" options="#{dashboardBean.releasedDrawing}" />
 					</p:panel>
-					<p:panel header="Released Drawings - Punctuality" style="width:100%;"> 
+					<p:panel header="Released Drawings - Punctuality"> 
 						<wc:chart id="chartReleasedDrawing2" options="#{dashboardBean.releasedDrawing}" />
 					</p:panel>
-					<p:panel header="Released Drawings - Quality" style="width:100%;"> 
+					<p:panel header="Released Drawings - Quality"> 
 						<wc:chart id="chartReleasedDrawing3" options="#{dashboardBean.releasedDrawing}" />
 					</p:panel>
-					<p:panel header="Management Disposition PCRs" style="width:100%;"> 
+					<p:panel header="Management Disposition PCRs"> 
 						<wc:chart id="chartManagementDispositionPCRs" options="#{dashboardBean.managementDispositionPCRs}" />
 					</p:panel>
 				</h:panelGrid>

@@ -11,7 +11,7 @@
 
 <ui:composition template="#{pageContext.request.contextPath}/template.xhtml">
 	<ui:define name="title">
-		Dashboard - Configuration Engineering
+		Dashboard - Main
 	</ui:define>
 	<ui:define name="javascriptHeader">
 		<script type="text/javascript">
@@ -20,9 +20,9 @@
 	</ui:define>
 	<ui:define name="header">
 	    <p:breadCrumb styleClass="borderRadius-none">  
-		    <p:menuitem value="Home" url="#{pageContext.request.contextPath}/begin.jsf" />  
-		    <p:menuitem value="Dashboards" url="#{pageContext.request.contextPath}/gtn/index.jsf" />  
-		    <p:menuitem value="Configuration Engineering" url="#{pageContext.request.contextPath}/gtn/project.jsf" />
+		    <p:menuitem value="Home" url="#" />  
+		    <p:menuitem value="Dashboards" url="#" />  
+		    <p:menuitem value="Main" url="#" />
 		</p:breadCrumb>  
 	</ui:define>
 	<ui:define name="content">
@@ -46,30 +46,6 @@
 						            <f:selectItem itemLabel="0110" itemValue="" />
 						        </p:selectOneMenu>
 				        	</h:panelGrid>
-				        	<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5" columnClasses="label, column">
-								<h:outputText value="Model" />
-				        		<p:selectOneMenu id="model" styleClass="widthSelect"> 
-				        			<f:selectItem itemLabel="Everything" itemValue="" /> 
-						            <f:selectItem itemLabel="Biposto" itemValue="" /> 
-						            <f:selectItem itemLabel="Monoposto" itemValue="" /> 
-						        </p:selectOneMenu>
-				        	</h:panelGrid>
-				        	<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5" columnClasses="label, column">
-								<h:outputText value="DBT" />
-				        		<p:selectOneMenu id="dbt" styleClass="widthSelect"> 
-				        			<f:selectItem itemLabel="Everything" itemValue="" /> 
-						            <f:selectItem itemLabel="A1M02" itemValue="" /> 
-						            <f:selectItem itemLabel="A1M03" itemValue="" /> 
-						        </p:selectOneMenu>
-				        	</h:panelGrid>
-				        	<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">  
-						        <h:outputText value="Viewing by period:" />  
-						        <p:selectOneButton value="1">  
-						            <f:selectItem itemLabel="Weekly" itemValue="1" />  
-						            <f:selectItem itemLabel="Monthly" itemValue="2" />  
-						            <f:selectItem itemLabel="Yearly" itemValue="3" />  
-						        </p:selectOneButton>
-						    </h:panelGrid> 
 				        	<h:panelGrid columns="4" style="margin-bottom:10px" cellpadding="5">
 								 <h:outputText value="Initial Date: " />
 						         <p:calendar id="initialDate" pattern="dd/MM/yy" effect="drop"/>  
@@ -118,8 +94,72 @@
 					</p:panel>  
 				</p:dialog>
 				<h:panelGrid columns="2" columnClasses="column1, column2">
-					<p:panel header="Status of Audits" style="width:100%;" toggleable="true"> 
+					<p:panel toggleable="true"> 
 						<wc:chart id="chart" options="#{dashboardConfigurationEngineering.statusOfAudits}" />
+					</p:panel>
+				</h:panelGrid>
+			</p:tab>
+			<p:tab title="EO's - Visibilities">
+				<h:form prependId="false">
+					<p:panel header="Filters">
+						<h:panelGrid columns="6" >
+							<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5" columnClasses="label, column">
+								<h:outputText value="Program" />
+				        		<p:selectOneMenu id="program1" value="A1M" styleClass="widthSelect">
+				        			<f:selectItem itemLabel="AEW" itemValue="" />  
+						            <f:selectItem itemLabel="A1M" itemValue="A1M" /> 
+						            <f:selectItem itemLabel="AF1M" itemValue="" />
+						            <f:selectItem itemLabel="AMX" itemValue="" />
+						            <f:selectItem itemLabel="F5BR" itemValue="" />
+						            <f:selectItem itemLabel="0314" itemValue="" /> 
+						            <f:selectItem itemLabel="0312" itemValue="" /> 
+						            <f:selectItem itemLabel="0190PR" itemValue="" />
+						            <f:selectItem itemLabel="0111" itemValue="" /> 
+						            <f:selectItem itemLabel="0110" itemValue="" />
+						        </p:selectOneMenu>
+				        	</h:panelGrid>
+				        	<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5" columnClasses="label, column">
+								<h:outputText value="Model" />
+				        		<p:selectOneMenu id="model1" styleClass="widthSelect"> 
+				        			<f:selectItem itemLabel="Everything" itemValue="" /> 
+						            <f:selectItem itemLabel="Biposto" itemValue="" /> 
+						            <f:selectItem itemLabel="Monoposto" itemValue="" /> 
+						        </p:selectOneMenu>
+				        	</h:panelGrid>
+				        	<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5" columnClasses="label, column">
+								<h:outputText value="DBT" />
+				        		<p:selectOneMenu id="dbt1" styleClass="widthSelect"> 
+				        			<f:selectItem itemLabel="Everything" itemValue="" /> 
+						            <f:selectItem itemLabel="A1M02" itemValue="" /> 
+						            <f:selectItem itemLabel="A1M03" itemValue="" /> 
+						        </p:selectOneMenu>
+				        	</h:panelGrid>
+				        	<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">  
+						        <h:outputText value="Viewing by period:" />  
+						        <p:selectOneButton>  
+						            <f:selectItem itemLabel="Weekly" itemValue="1" />  
+						            <f:selectItem itemLabel="Monthly" itemValue="2" />  
+						            <f:selectItem itemLabel="Yearly" itemValue="3" />  
+						        </p:selectOneButton>
+						    </h:panelGrid> 
+				        	<h:panelGrid columns="4" style="margin-bottom:10px" cellpadding="5">
+								 <h:outputText value="Initial Date: " />
+						         <p:calendar id="initialDate1" pattern="dd/MM/yy" effect="drop"/>  
+						         <h:outputText value="End Date:"/>
+						         <p:calendar id="endDate1" pattern="dd/MM/yy" effect="drop"/> 
+				        	</h:panelGrid>
+				        	<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+				        		<p:commandButton value="Generate" />
+				        	</h:panelGrid>
+			        	</h:panelGrid>
+		        	</p:panel>
+        		</h:form>
+				<h:panelGrid columns="2">	
+					<p:panel toggleable="true"> 
+						<wc:chart id="chartReleaseCurveDrawing" options="#{dashboardBean.releaseCurveDrawing}" />
+					</p:panel>
+					<p:panel toggleable="true"> 
+						<wc:chart id="chartRelesedOEs" options="#{dashboardBean.relesedOEs}" />
 					</p:panel>
 				</h:panelGrid>
 			</p:tab>
@@ -129,9 +169,9 @@
 						<h:panelGrid columns="6" >
 							<h:panelGrid columns="4" style="margin-bottom:10px" cellpadding="5">
 								 <h:outputText value="Initial Date: " />
-						         <p:calendar id="initialDate1" pattern="dd/MM/yy" effect="drop"/>  
+						         <p:calendar id="initialDate2" pattern="dd/MM/yy" effect="drop"/>  
 						         <h:outputText value="End Date:"/>
-						         <p:calendar id="endDate1" pattern="dd/MM/yy" effect="drop"/> 
+						         <p:calendar id="endDate3" pattern="dd/MM/yy" effect="drop"/> 
 				        	</h:panelGrid>
 				        	<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">  
 						        <h:outputText value="Viewing by period:" />  
@@ -148,26 +188,44 @@
 		        	</p:panel>
         		</h:form>
 				<h:panelGrid columns="2">
-					<p:panel header="Control Tower" toggleable="true"> 
-						<wc:chart id="chartControlTower" options="#{dashboardConfigurationEngineering.itemsWithoutComponent}" />
+					<p:panel toggleable="true"> 
+						<wc:chart id="chartMfa" options="#{dashboardP3eBean.procedureMfa}" />
 					</p:panel>
-					<p:panel header="MFA" toggleable="true"> 
-						<wc:chart id="chartMfa" options="#{dashboardConfigurationEngineering.itemsWithoutComponent}" />
-					</p:panel>
-					<p:panel header="QCPC" toggleable="true"> 
-						<wc:chart id="chartQcpc" options="#{dashboardConfigurationEngineering.itemsWithoutComponent}" />
-					</p:panel>
-					<p:panel header="5S" toggleable="true"> 
-						<wc:chart id="chart5s" options="#{dashboardConfigurationEngineering.itemsWithoutComponent}" />
-					</p:panel>
-					<p:panel header="Training" toggleable="true"> 
-						<wc:chart id="chartTraining" options="#{dashboardConfigurationEngineering.itemsWithoutComponent}" />
-					</p:panel>
-					<p:panel header="DMAIC" toggleable="true"> 
-						<wc:chart id="chartDmaic" options="#{dashboardConfigurationEngineering.itemsWithoutComponent}" />
-					</p:panel>
-					<p:panel header="Improvement Projects" toggleable="true"> 
+					<p:panel toggleable="true"> 
 						<wc:chart id="chartImprovementProjects" options="#{dashboardConfigurationEngineering.improvementsProjects}" />
+					</p:panel>
+				</h:panelGrid>
+			</p:tab>
+			<p:tab title="Cell 026 - Visibilities">
+				<h:form prependId="false">
+					<p:panel header="Filters">
+						<h:panelGrid columns="6" >
+							<h:panelGrid columns="4" style="margin-bottom:10px" cellpadding="5">
+								 <h:outputText value="Initial Date: " />
+						         <p:calendar id="initialDate4" pattern="dd/MM/yy" effect="drop"/>  
+						         <h:outputText value="End Date:"/>
+						         <p:calendar id="endDate4" pattern="dd/MM/yy" effect="drop"/> 
+				        	</h:panelGrid>
+				        	<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">  
+						        <h:outputText value="Viewing by period:" />  
+						        <p:selectOneButton>  
+						            <f:selectItem itemLabel="Weekly" itemValue="1" />  
+						            <f:selectItem itemLabel="Monthly" itemValue="2" />  
+						            <f:selectItem itemLabel="Yearly" itemValue="3" />  
+						        </p:selectOneButton>
+						    </h:panelGrid> 
+				        	<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+				        		<p:commandButton value="Generate"/>
+				        	</h:panelGrid>
+			        	</h:panelGrid>
+		        	</p:panel>
+        		</h:form>
+				<h:panelGrid columns="2">
+					<p:panel toggleable="true"> 
+						<wc:chart id="chartMfa1" options="#{dashboardP3eBean.procedureMfa}" />
+					</p:panel>
+					<p:panel toggleable="true"> 
+						<wc:chart id="chartImprovementProjects1" options="#{dashboardConfigurationEngineering.improvementsProjects}" />
 					</p:panel>
 				</h:panelGrid>
 			</p:tab>

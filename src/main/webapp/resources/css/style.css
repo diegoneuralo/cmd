@@ -22,9 +22,10 @@ body{
 }
 
 .column1, .column2{
-	min-width:700px;
-	padding-right:15px;
-	padding-top:10px;
+	padding:5px;
+}
+.teste{
+	padding:5px;
 }
 
 .panelGrid tr, .panelGrid td {
