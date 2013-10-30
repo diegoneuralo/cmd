@@ -2,6 +2,7 @@ package com.cmd.controller;
 
 import java.io.Serializable;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Named;
 
@@ -43,6 +44,11 @@ public class DashboardConfigurationEngineering implements Serializable{
 	private Options improvementsProjects = new Options();
 	
 	public DashboardConfigurationEngineering(){
+		
+	}
+	
+	@PostConstruct
+	public void init(){
 		selectStatusOfAudits();
 		selectItemsWithoutComponent();
 		selectPsa();
@@ -340,7 +346,7 @@ public class DashboardConfigurationEngineering implements Serializable{
 		options.setSubtitle(new Title("Improvement Projects - 2013"));
  
 		options.setxAxis(new Axis()
-        .setCategories("Congelamento da EPRO", "Gest√£o da EPRO", "Configura√ß√£o S√©rie Curta", "Gest√£o de Configura√ß√£o de Fornecedores", "Confiabilidade EPRO AMX"));
+        .setCategories("Congelamento da EPRO", "Gest„o da EPRO", "ConfiguraÁ„o SÈrie Curta", "Gest„o de ConfiguraÁ„o de Fornecedores", "Confiabilidade EPRO AMX"));
  
 		options.setyAxis(new Axis()
         .setMin(0)

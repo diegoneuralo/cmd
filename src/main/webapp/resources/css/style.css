@@ -3,9 +3,10 @@ html{
 }
 
 body{
-	border-top:10px solid #0085B2;
-	border-bottom:10px solid #0085B2;
+	border-top:10px solid #F58552;
+	border-bottom:10px solid #F58552;
 	margin:0;
+	background-image: url("../images/bg.png");
 }
 
 .ui-widget,.ui-widget .ui-widget {

@@ -19,11 +19,7 @@
 		</script>
 	</ui:define>
 	<ui:define name="header">
-	    <p:breadCrumb styleClass="borderRadius-none">  
-		    <p:menuitem value="Home" url="#" />  
-		    <p:menuitem value="Dashboards" url="#" />  
-		    <p:menuitem value="Main" url="#" />
-		</p:breadCrumb>  
+	     
 	</ui:define>
 	<ui:define name="content">
 		<p:tabView id="tabCenter" effect="fade">
@@ -93,8 +89,8 @@
 						
 					</p:panel>  
 				</p:dialog>
-				<h:panelGrid columns="2" columnClasses="column1, column2">
-					<p:panel toggleable="true"> 
+				<h:panelGrid columns="2" styleClass="column1, column2">
+					<p:panel style="width:600px;" toggleable="true"> 
 						<wc:chart id="chart" options="#{dashboardConfigurationEngineering.statusOfAudits}" />
 					</p:panel>
 				</h:panelGrid>
@@ -222,10 +218,10 @@
         		</h:form>
 				<h:panelGrid columns="2">
 					<p:panel toggleable="true"> 
-						<wc:chart id="chartMfa1" options="#{dashboardP3eBean.procedureMfa}" />
+						<wc:chart id="chartMfa1" options="#{dashboardP3eBean.towerControl}" />
 					</p:panel>
 					<p:panel toggleable="true"> 
-						<wc:chart id="chartImprovementProjects1" options="#{dashboardConfigurationEngineering.improvementsProjects}" />
+						<wc:chart id="chartImprovementProjects1" options="#{dashboardP3eBean.improvementsProjects}" />
 					</p:panel>
 				</h:panelGrid>
 			</p:tab>

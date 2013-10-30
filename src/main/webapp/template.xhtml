@@ -23,7 +23,10 @@
 		</h:head>
 		<h:body style="margin:0; padding:0;">
 			<ui:include src="menu.xhtml" />
-			<p:panel footer="User:">	        
+			<div style="width:100%; margin:0; background: url(#{request.contextPath}/resources/images/bg_title.png) #fff right top no-repeat;">
+				<h:graphicImage url="#{pageContext.request.contextPath}/resources/images/logo.png" id="logotipo"/>
+			</div>
+			<p:panel>	        
 		        <ui:insert name="header">Add your header here or delete to use the default</ui:insert>
 		    	<ui:insert name="content">Add your content here or delete to use the default</ui:insert>
 		    	<ui:insert name="footer"></ui:insert> 
