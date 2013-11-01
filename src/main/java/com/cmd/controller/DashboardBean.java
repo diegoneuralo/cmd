@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.sql.Date;
 import java.util.Iterator;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -78,7 +79,11 @@ public class DashboardBean implements Serializable {
 		selectReleaseCurveDrawing();
 		selectNumberEOs();
 		selectManagementDispositionPCRs();
-		/*drawingReleasedInOEService.selectPlannedDwgWeek("A1M", Date.valueOf("2013-10-01"), Date.valueOf("2013-11-01"));*/
+	}
+	
+	@PostConstruct
+	public void init(){
+		drawingReleasedInOEService.selectPlannedDwgWeek("A1M", Date.valueOf("2013-10-01"), Date.valueOf("2013-11-01"));
 	}
 
 	public void selectDelayedEOs() {

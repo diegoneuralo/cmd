@@ -22,18 +22,16 @@ public class DrawingReleasedInOEService implements IDrawingReleasedInOEService,
 	private static final long serialVersionUID = 1L;
 	@Inject
 	private IGenericDao<DrawingReleasedInOE> dao;
-
+	
+	@Inject
 	@PersistenceContext(name = "cmd")
-	protected EntityManager getEntityManager;
+    protected EntityManager getEntityManager;
 
 	@Override
 	public List<Object[]> selectPlannedDwgWeek(String codProgram,
 			Date initialDate, Date endDate) {
 		Query query = getEntityManager
-				.createNativeQuery("{ call procedure_planned_dwg_week(?, ?, ?) }");
-		query.setParameter(1, codProgram);
-		query.setParameter(2, initialDate);
-		query.setParameter(3, endDate);
+				.createNativeQuery("SELECT * FROM ztdp_pn_afetado");
 		List<Object[]> result = query.getResultList();
 		for (Object[] row : result) {
 			String nomeMarca = (String) row[0];
