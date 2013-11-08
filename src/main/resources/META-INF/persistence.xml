@@ -26,6 +26,7 @@
       <!-- The datasource is deployed as WEB-INF/cmd-ds.xml, you
          can find it in the source at src/main/webapp/WEB-INF/cmd-ds.xml -->
       <jta-data-source>java:jboss/datasources/cmdDS</jta-data-source>
+      <class>com.cmd.model.Aircraft</class>
       <properties>
          <!-- Properties for Hibernate -->
          <property name="hibernate.hbm2ddl.auto" value="update" />

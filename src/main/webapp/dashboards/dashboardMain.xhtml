@@ -96,38 +96,28 @@
 				</h:panelGrid>
 			</p:tab>
 			<p:tab title="EO's - Visibilities">
-				<h:form prependId="false">
+				<h:form id="formEos" prependId="false">
 					<p:panel header="Filters">
 						<h:panelGrid columns="6" >
 							<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5" columnClasses="label, column">
 								<h:outputText value="Program" />
-				        		<p:selectOneMenu id="program1" value="A1M" styleClass="widthSelect">
-				        			<f:selectItem itemLabel="AEW" itemValue="" />  
-						            <f:selectItem itemLabel="A1M" itemValue="A1M" /> 
-						            <f:selectItem itemLabel="AF1M" itemValue="" />
-						            <f:selectItem itemLabel="AMX" itemValue="" />
-						            <f:selectItem itemLabel="F5BR" itemValue="" />
-						            <f:selectItem itemLabel="0314" itemValue="" /> 
-						            <f:selectItem itemLabel="0312" itemValue="" /> 
-						            <f:selectItem itemLabel="0190PR" itemValue="" />
-						            <f:selectItem itemLabel="0111" itemValue="" /> 
-						            <f:selectItem itemLabel="0110" itemValue="" />
+				        		<p:selectOneMenu id="program1" value="#{dashboardBean.codProjectSelected}" styleClass="widthSelect">
+				        			<f:selectItems value="#{dashboardBean.listCodProject()}" />
+				        			<p:ajax update="model1" />
 						        </p:selectOneMenu>
 				        	</h:panelGrid>
 				        	<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5" columnClasses="label, column">
 								<h:outputText value="Model" />
-				        		<p:selectOneMenu id="model1" styleClass="widthSelect"> 
-				        			<f:selectItem itemLabel="Everything" itemValue="" /> 
-						            <f:selectItem itemLabel="Biposto" itemValue="" /> 
-						            <f:selectItem itemLabel="Monoposto" itemValue="" /> 
+				        		<p:selectOneMenu id="model1" value="#{dashboardBean.codModelSelected}" styleClass="widthSelect"> 
+				        			<f:selectItem itemLabel="Everything" itemValue="" />
+				        			<f:selectItems value="#{dashboardBean.listCodModel()}" />
 						        </p:selectOneMenu>
 				        	</h:panelGrid>
 				        	<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5" columnClasses="label, column">
 								<h:outputText value="DBT" />
-				        		<p:selectOneMenu id="dbt1" styleClass="widthSelect"> 
+				        		<p:selectOneMenu id="dbt1" value="#{dashboardBean.dbtSelected}" styleClass="widthSelect"> 
 				        			<f:selectItem itemLabel="Everything" itemValue="" /> 
-						            <f:selectItem itemLabel="A1M02" itemValue="" /> 
-						            <f:selectItem itemLabel="A1M03" itemValue="" /> 
+						            <f:selectItems value="#{dashboardBean.listDbt()}" /> 
 						        </p:selectOneMenu>
 				        	</h:panelGrid>
 				        	<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">  
@@ -145,12 +135,12 @@
 						         <p:calendar id="endDate1" pattern="dd/MM/yy" effect="drop"/> 
 				        	</h:panelGrid>
 				        	<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
-				        		<p:commandButton value="Generate" />
+				        		<p:commandButton value="Generate" actionListener="#{dashboardBean.plotCharts()}" update="@all" />
 				        	</h:panelGrid>
 			        	</h:panelGrid>
 		        	</p:panel>
         		</h:form>
-				<h:panelGrid columns="2">	
+				<h:panelGrid columns="2" id="panelChart">	
 					<p:panel toggleable="true"> 
 						<wc:chart id="chartReleaseCurveDrawing" options="#{dashboardBean.releaseCurveDrawing}" />
 					</p:panel>

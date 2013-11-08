@@ -1,6 +1,8 @@
 package com.cmd.service;
 
 import java.io.Serializable;
+import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -23,81 +25,132 @@ public class DrawingReleasedInOEService implements IDrawingReleasedInOEService,
 	@Inject
 	private IGenericDao<DrawingReleasedInOE> dao;
 	
-	@Inject
 	@PersistenceContext(name = "cmd")
     protected EntityManager getEntityManager;
 
 	@Override
-	public List<Object[]> selectPlannedDwgWeek(String codProgram,
+	public List<DrawingReleasedInOE> selectPlannedDwgWeek(String codProgram,
 			Date initialDate, Date endDate) {
 		Query query = getEntityManager
-				.createNativeQuery("SELECT * FROM ztdp_pn_afetado");
+				.createNativeQuery("call procedure_planned_dwg_week(?, ?, ?)");
+		query.setParameter(1, codProgram);
+		query.setParameter(2, initialDate);
+		query.setParameter(3, endDate);
 		List<Object[]> result = query.getResultList();
+		List<DrawingReleasedInOE> listDrawingReleasedInOEs = new ArrayList<DrawingReleasedInOE>();
 		for (Object[] row : result) {
-			String nomeMarca = (String) row[0];
-			String descricao = (String) row[1];
-			Float preco = (Float) row[2];
+			DrawingReleasedInOE drawingReleasedInOE = new DrawingReleasedInOE();
+			drawingReleasedInOE.setCodProgram((String) row[0]);
+			drawingReleasedInOE.setQtyPn(((BigInteger)row[1]).intValue());
+			drawingReleasedInOE.setQtyPnAccum(Integer.valueOf(row[2].toString()));
+			drawingReleasedInOE.setCategory(row[3].toString());
+			listDrawingReleasedInOEs.add(drawingReleasedInOE);
 		}
-		return result;
+		return listDrawingReleasedInOEs;
 	}
 
 	@Override
 	public List<DrawingReleasedInOE> selectPlannedDwgMonthly(String codProgram,
 			Date initialDate, Date endDate) {
 		Query query = getEntityManager
-				.createNativeQuery("{ call procedure_planned_dwg_monthly(?, ?, ?) }");
+				.createNativeQuery("call procedure_planned_dwg_monthly(?, ?, ?)");
 		query.setParameter(1, codProgram);
 		query.setParameter(2, initialDate);
 		query.setParameter(3, endDate);
-		List results = query.getResultList();
-		return results;
+		List<Object[]> result = query.getResultList();
+		List<DrawingReleasedInOE> listDrawingReleasedInOEs = new ArrayList<DrawingReleasedInOE>();
+		for (Object[] row : result) {
+			DrawingReleasedInOE drawingReleasedInOE = new DrawingReleasedInOE();
+			drawingReleasedInOE.setCodProgram((String) row[0]);
+			drawingReleasedInOE.setQtyPn(((BigInteger)row[1]).intValue());
+			drawingReleasedInOE.setQtyPnAccum(Integer.valueOf(row[2].toString()));
+			drawingReleasedInOE.setCategory(row[3].toString());
+			listDrawingReleasedInOEs.add(drawingReleasedInOE);
+		}
+		return listDrawingReleasedInOEs;
 	}
 
 	@Override
 	public List<DrawingReleasedInOE> selectPlannedDwgYearly(String codProgram,
 			Date initialDate, Date endDate) {
 		Query query = getEntityManager
-				.createNativeQuery("{ call procedure_planned_dwg_yearly(?, ?, ?) }");
+				.createNativeQuery("call procedure_planned_dwg_yearly(?, ?, ?)");
 		query.setParameter(1, codProgram);
 		query.setParameter(2, initialDate);
 		query.setParameter(3, endDate);
-		List results = query.getResultList();
-		return results;
+		List<Object[]> result = query.getResultList();
+		List<DrawingReleasedInOE> listDrawingReleasedInOEs = new ArrayList<DrawingReleasedInOE>();
+		for (Object[] row : result) {
+			DrawingReleasedInOE drawingReleasedInOE = new DrawingReleasedInOE();
+			drawingReleasedInOE.setCodProgram((String) row[0]);
+			drawingReleasedInOE.setQtyPn(((BigInteger)row[1]).intValue());
+			drawingReleasedInOE.setQtyPnAccum(Integer.valueOf(row[2].toString()));
+			drawingReleasedInOE.setCategory(row[3].toString());
+			listDrawingReleasedInOEs.add(drawingReleasedInOE);
+		}
+		return listDrawingReleasedInOEs;
 	}
 
 	@Override
 	public List<DrawingReleasedInOE> selectReleasedDwgWeek(String codProgram,
 			Date initialDate, Date endDate) {
 		Query query = getEntityManager
-				.createNativeQuery("{ call procedure_released_dwg_week(?, ?, ?) }");
+				.createNativeQuery("call procedure_released_dwg_week(?, ?, ?)");
 		query.setParameter(1, codProgram);
 		query.setParameter(2, initialDate);
 		query.setParameter(3, endDate);
-		List results = query.getResultList();
-		return results;
+		List<Object[]> result = query.getResultList();
+		List<DrawingReleasedInOE> listDrawingReleasedInOEs = new ArrayList<DrawingReleasedInOE>();
+		for (Object[] row : result) {
+			DrawingReleasedInOE drawingReleasedInOE = new DrawingReleasedInOE();
+			drawingReleasedInOE.setCodProgram((String) row[0]);
+			drawingReleasedInOE.setQtyPn(((BigInteger)row[1]).intValue());
+			drawingReleasedInOE.setQtyPnAccum(Integer.valueOf(row[2].toString()));
+			drawingReleasedInOE.setCategory(row[3].toString());
+			listDrawingReleasedInOEs.add(drawingReleasedInOE);
+		}
+		return listDrawingReleasedInOEs;
 	}
 
 	@Override
 	public List<DrawingReleasedInOE> selectReleasedDwgMonthly(
 			String codProgram, Date initialDate, Date endDate) {
 		Query query = getEntityManager
-				.createNativeQuery("{ call procedure_released_dwg_monthly(?, ?, ?) }");
+				.createNativeQuery("call procedure_released_dwg_monthly(?, ?, ?)");
 		query.setParameter(1, codProgram);
 		query.setParameter(2, initialDate);
 		query.setParameter(3, endDate);
-		List results = query.getResultList();
-		return results;
+		List<Object[]> result = query.getResultList();
+		List<DrawingReleasedInOE> listDrawingReleasedInOEs = new ArrayList<DrawingReleasedInOE>();
+		for (Object[] row : result) {
+			DrawingReleasedInOE drawingReleasedInOE = new DrawingReleasedInOE();
+			drawingReleasedInOE.setCodProgram((String) row[0]);
+			drawingReleasedInOE.setQtyPn(((BigInteger)row[1]).intValue());
+			drawingReleasedInOE.setQtyPnAccum(Integer.valueOf(row[2].toString()));
+			drawingReleasedInOE.setCategory(row[3].toString());
+			listDrawingReleasedInOEs.add(drawingReleasedInOE);
+		}
+		return listDrawingReleasedInOEs;
 	}
 
 	@Override
 	public List<DrawingReleasedInOE> selectReleasedDwgYearly(String codProgram,
 			Date initialDate, Date endDate) {
 		Query query = getEntityManager
-				.createNativeQuery("{ call procedure_released_dwg_yearly(?, ?, ?) }");
+				.createNativeQuery("call procedure_released_dwg_yearly(?, ?, ?)");
 		query.setParameter(1, codProgram);
 		query.setParameter(2, initialDate);
 		query.setParameter(3, endDate);
-		List results = query.getResultList();
-		return results;
+		List<Object[]> result = query.getResultList();
+		List<DrawingReleasedInOE> listDrawingReleasedInOEs = new ArrayList<DrawingReleasedInOE>();
+		for (Object[] row : result) {
+			DrawingReleasedInOE drawingReleasedInOE = new DrawingReleasedInOE();
+			drawingReleasedInOE.setCodProgram((String) row[0]);
+			drawingReleasedInOE.setQtyPn(((BigInteger)row[1]).intValue());
+			drawingReleasedInOE.setQtyPnAccum(Integer.valueOf(row[2].toString()));
+			drawingReleasedInOE.setCategory(row[3].toString());
+			listDrawingReleasedInOEs.add(drawingReleasedInOE);
+		}
+		return listDrawingReleasedInOEs;
 	}
 }

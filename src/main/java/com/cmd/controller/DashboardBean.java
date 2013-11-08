@@ -1,8 +1,11 @@
 package com.cmd.controller;
 
+import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 import java.sql.Date;
 import java.util.Iterator;
 
@@ -11,6 +14,9 @@ import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import com.cmd.model.Aircraft;
+import com.cmd.model.DrawingReleasedInOE;
+import com.cmd.service.interfaces.IAircraftService;
 import com.cmd.service.interfaces.IDrawingReleasedInOEService;
 import com.googlecode.wickedcharts.highcharts.options.Axis;
 import com.googlecode.wickedcharts.highcharts.options.Center;
@@ -61,6 +67,9 @@ public class DashboardBean implements Serializable {
 	@Inject
 	IDrawingReleasedInOEService drawingReleasedInOEService;
 	
+	@Inject
+	IAircraftService aircraftService;
+	
 	private Options options = new Options();
 	private Theme theme = new Theme();
 	private Options relesedOEs = new Options();
@@ -70,9 +79,20 @@ public class DashboardBean implements Serializable {
 	private Options releaseCurveDrawing = new Options();
 	private Options numberEOs = new Options();
 	private Options managementDispositionPCRs = new Options();
+	private List<DrawingReleasedInOE> listPlannedDwgWeek = new ArrayList<DrawingReleasedInOE>();
+	private List<Aircraft> listAircraft = new ArrayList<Aircraft>();
+	private String codProjectSelected = new String();
+	private String codModelSelected = new String();
+	private String dbtSelected = new String();
+	
 
 	public DashboardBean() {
-		selectRelesedOEs();
+		
+	}
+	
+	@PostConstruct
+	public void init(){
+		selectRelesedOEs(false);
 		selectDelayedEOs();
 		selectChangeDocumentType();
 		selectReleasedDrawing();
@@ -81,9 +101,44 @@ public class DashboardBean implements Serializable {
 		selectManagementDispositionPCRs();
 	}
 	
-	@PostConstruct
-	public void init(){
-		drawingReleasedInOEService.selectPlannedDwgWeek("A1M", Date.valueOf("2013-10-01"), Date.valueOf("2013-11-01"));
+	public void plotCharts(){
+		selectRelesedOEs(true);
+	}
+	
+	public List<String> listCodProject(){
+		/*
+		 * Carrega a lista do Banco de dados
+		 */
+		List<Aircraft> daoAircraft = aircraftService.selectProgram();
+		List<String> list = new ArrayList<String>();
+		for(Aircraft aircraft : daoAircraft){
+			list.add(aircraft.getCodProgram());
+		}
+	     return list;
+	}
+	
+	public List<String> listCodModel(){
+		/*
+		 * Carrega a lista do Banco de dados
+		 */
+		List<Aircraft> daoAircraft = aircraftService.selectModel(getCodProjectSelected());
+		List<String> list = new ArrayList<String>();
+		for(Aircraft aircraft : daoAircraft){
+			list.add(aircraft.getCodModel());
+		}
+	     return list;
+	}
+	
+	public List<String> listDbt(){
+		/*
+		 * Carrega a lista do Banco de dados
+		 */
+		List<Aircraft> daoAircraft = aircraftService.selectDbt(getCodProjectSelected());
+		List<String> list = new ArrayList<String>();
+		for(Aircraft aircraft : daoAircraft){
+			list.add(aircraft.getDesignBuiltTeam().getDscDbt());
+		}
+	     return list;
 	}
 
 	public void selectDelayedEOs() {
@@ -129,68 +184,99 @@ public class DashboardBean implements Serializable {
 		setDelayedEOs(options);
 	}
 
-	public void selectRelesedOEs() {	
-		
-		/*drawingReleasedInOEService.selectPlannedDwgWeek("A1M", Date.valueOf("2013-10-01"), Date.valueOf("2013-11-01"));*/
-
-		theme = new DarkBlueTheme();
-		Options options = new Options();
-		ChartOptions chartOptions = new ChartOptions();
-		options.setChartOptions(chartOptions);
-		options.setTitle(new Title("A1M"));
-		options.setSubtitle(new Title("Released EO's - 2013"));
-
-		Axis xAxis = new Axis();
-		xAxis.setCategories(Arrays.asList(new String[] { "Jan/13", "Feb/13",
-				"Mar/13", "Apr/13", "May/13" }));
-
-		Axis yAxis = new Axis();
-		yAxis.setTitle(new Title("Qty PNs"));
-
-		options.setyAxis(yAxis);
-		options.setxAxis(xAxis);
-
-		options.setTooltip(new Tooltip());
-
-		options.setLabels(new Labels().setStyle(new CssStyle()));
-
-		Series<Number> series1 = new SimpleSeries();
-		series1.setType(SeriesType.COLUMN);
-		series1.setName("Planned");
-		series1.setData(Arrays.asList(new Number[] { 3, 2, 1, 3, 4 }));
-		options.addSeries(series1);
-
-		Series<Number> series2 = new SimpleSeries();
-		series2.setType(SeriesType.COLUMN);
-		series2.setName("Released");
-		series2.setData(Arrays.asList(new Number[] { 2, 3, 5, 7, 6 }));
-		options.addSeries(series2);
-
-		Marker series3Marker = new Marker();
-		series3Marker.setLineWidth(2);
-		series3Marker.setLineColor(new HexColor("#8BBC21"));
-		series3Marker.setFillColor(new HexColor("#ffffff"));
-
-		Series<Number> series3 = new SimpleSeries();
-		series3.setType(SeriesType.SPLINE);
-		series3.setName("Accumulated Planned");
-		series3.setData(Arrays.asList(new Number[] { 4, 3, 3, 9, 0 }));
-		series3.setMarker(series3Marker);
-		options.addSeries(series3);
-
-		Marker series4Marker = new Marker();
-		series4Marker.setLineWidth(2);
-		series4Marker.setLineColor(new HexColor("#990000"));
-		series4Marker.setFillColor(new HexColor("#ffffff"));
-
-		Series<Number> series4 = new SimpleSeries();
-		series4.setType(SeriesType.SPLINE);
-		series4.setName("Accumulated Released");
-		series4.setData(Arrays.asList(new Number[] { 3, 2.67, 3, 6.33, 3.33 }));
-		series4.setMarker(series4Marker);
-		options.addSeries(series4);
-
-		setRelesedOEs(options);
+	public void selectRelesedOEs(boolean bool) {
+		if(bool){
+			List<DrawingReleasedInOE> listPlanned = drawingReleasedInOEService.selectPlannedDwgWeek(codProjectSelected, Date.valueOf("2013-11-01"), Date.valueOf("2013-11-05"));
+			List<DrawingReleasedInOE> listReleased = drawingReleasedInOEService.selectReleasedDwgWeek(codProjectSelected, Date.valueOf("2013-11-01"), Date.valueOf("2013-11-05"));
+			
+			List<String> cateListPlanned = new ArrayList<String>();
+			List<Number> qtyPnListPlanned = new ArrayList<Number>();
+			for(DrawingReleasedInOE drawingReleasedInOE : listPlanned){
+				cateListPlanned.add(drawingReleasedInOE.getCategory());
+				qtyPnListPlanned.add(drawingReleasedInOE.getQtyPn());
+			}
+			
+			List<Number> qtyPnListPlannedAccum = new ArrayList<Number>();
+			for(DrawingReleasedInOE drawingReleasedInOE : listPlanned){
+				qtyPnListPlannedAccum.add(drawingReleasedInOE.getQtyPn());
+			}
+			
+			List<Number> qtyPnListReleased = new ArrayList<Number>();
+			for(DrawingReleasedInOE drawingReleasedInOE : listReleased){
+				qtyPnListReleased.add(drawingReleasedInOE.getQtyPn());
+			}
+			
+			List<Number> qtyPnListReleasedAccum = new ArrayList<Number>();
+			for(DrawingReleasedInOE drawingReleasedInOE : listReleased){
+				qtyPnListReleasedAccum.add(drawingReleasedInOE.getQtyPnAccum());
+			}
+	
+			theme = new DarkBlueTheme();
+			Options options = new Options();
+			ChartOptions chartOptions = new ChartOptions();
+			options.setChartOptions(chartOptions);
+			options.setTitle(new Title(codProjectSelected));
+			options.setSubtitle(new Title("EO's Release by Week of 2013"));
+	
+			Axis xAxis = new Axis();
+			xAxis.setCategories(cateListPlanned);
+	
+			Axis yAxis = new Axis();
+			yAxis.setTitle(new Title("Qty PNs"));
+	
+			options.setyAxis(yAxis);
+			options.setxAxis(xAxis);
+	
+			options.setTooltip(new Tooltip());
+	
+			options.setLabels(new Labels().setStyle(new CssStyle()));
+	
+			Series<Number> series1 = new SimpleSeries();
+			series1.setType(SeriesType.COLUMN);
+			series1.setName("Planned");
+			series1.setData(qtyPnListPlanned);
+			options.addSeries(series1);
+	
+			Series<Number> series2 = new SimpleSeries();
+			series2.setType(SeriesType.COLUMN);
+			series2.setName("Released");
+			series2.setData(qtyPnListReleased);
+			options.addSeries(series2);
+	
+			Marker series3Marker = new Marker();
+			series3Marker.setLineWidth(2);
+			series3Marker.setLineColor(new HexColor("#8BBC21"));
+			series3Marker.setFillColor(new HexColor("#ffffff"));
+	
+			Series<Number> series3 = new SimpleSeries();
+			series3.setType(SeriesType.SPLINE);
+			series3.setName("Accumulated Planned");
+			series3.setData(qtyPnListPlannedAccum);
+			series3.setMarker(series3Marker);
+			options.addSeries(series3);
+	
+			Marker series4Marker = new Marker();
+			series4Marker.setLineWidth(2);
+			series4Marker.setLineColor(new HexColor("#990000"));
+			series4Marker.setFillColor(new HexColor("#ffffff"));
+	
+			Series<Number> series4 = new SimpleSeries();
+			series4.setType(SeriesType.SPLINE);
+			series4.setName("Accumulated Released");
+			series4.setData(qtyPnListReleasedAccum);
+			series4.setMarker(series4Marker);
+			options.addSeries(series4);
+	
+			setRelesedOEs(options);
+		}else{
+			theme = new DarkBlueTheme();
+			Options options = new Options();
+			ChartOptions chartOptions = new ChartOptions();
+			options.setChartOptions(chartOptions);
+			options.setTitle(new Title(codProjectSelected));
+			options.setSubtitle(new Title("EO's Release by Week of 2013"));
+			setRelesedOEs(options);
+		}
 	}
 
 	public void selectChangeDocumentType() {
@@ -533,6 +619,46 @@ public class DashboardBean implements Serializable {
 
 	public void setManagementDispositionPCRs(Options managementDispositionPCRs) {
 		this.managementDispositionPCRs = managementDispositionPCRs;
+	}
+
+	public List<DrawingReleasedInOE> getListPlannedDwgWeek() {
+		return listPlannedDwgWeek;
+	}
+
+	public void setListPlannedDwgWeek(List<DrawingReleasedInOE> listPlannedDwgWeek) {
+		this.listPlannedDwgWeek = listPlannedDwgWeek;
+	}
+
+	public List<Aircraft> getListAircraft() {
+		return listAircraft;
+	}
+
+	public void setListAircraft(List<Aircraft> listAircraft) {
+		this.listAircraft = listAircraft;
+	}
+
+	public String getCodProjectSelected() {
+		return codProjectSelected;
+	}
+
+	public void setCodProjectSelected(String codProjectSelected) {
+		this.codProjectSelected = codProjectSelected;
+	}
+
+	public String getCodModelSelected() {
+		return codModelSelected;
+	}
+
+	public void setCodModelSelected(String codModelSelected) {
+		this.codModelSelected = codModelSelected;
+	}
+
+	public String getDbtSelected() {
+		return dbtSelected;
+	}
+
+	public void setDbtSelected(String dbtSelected) {
+		this.dbtSelected = dbtSelected;
 	}
 
 }

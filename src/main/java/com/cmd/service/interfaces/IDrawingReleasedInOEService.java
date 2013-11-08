@@ -7,7 +7,7 @@ import com.cmd.model.DrawingReleasedInOE;
 
 public interface IDrawingReleasedInOEService {
 	
-	public List<Object[]> selectPlannedDwgWeek(String codProgram, Date initialDate, Date endDate);
+	public List<DrawingReleasedInOE> selectPlannedDwgWeek(String codProgram, Date initialDate, Date endDate);
 	public List<DrawingReleasedInOE> selectPlannedDwgMonthly(String codProgram, Date initialDate, Date endDate);
 	public List<DrawingReleasedInOE> selectPlannedDwgYearly(String codProgram, Date initialDate, Date endDate);
 	public List<DrawingReleasedInOE> selectReleasedDwgWeek(String codProgram, Date initialDate, Date endDate);
