@@ -10,6 +10,7 @@ import java.sql.Date;
 import java.util.Iterator;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.ApplicationScoped;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -84,6 +85,9 @@ public class DashboardBean implements Serializable {
 	private String codProjectSelected = new String();
 	private String codModelSelected = new String();
 	private String dbtSelected = new String();
+	private Integer periodSelected = 1;
+	private Date minDate;
+	private Date maxDate;
 	
 
 	public DashboardBean() {
@@ -99,10 +103,6 @@ public class DashboardBean implements Serializable {
 		selectReleaseCurveDrawing();
 		selectNumberEOs();
 		selectManagementDispositionPCRs();
-	}
-	
-	public void plotCharts(){
-		selectRelesedOEs(true);
 	}
 	
 	public List<String> listCodProject(){
@@ -186,8 +186,8 @@ public class DashboardBean implements Serializable {
 
 	public void selectRelesedOEs(boolean bool) {
 		if(bool){
-			List<DrawingReleasedInOE> listPlanned = drawingReleasedInOEService.selectPlannedDwgWeek(codProjectSelected, Date.valueOf("2013-11-01"), Date.valueOf("2013-11-05"));
-			List<DrawingReleasedInOE> listReleased = drawingReleasedInOEService.selectReleasedDwgWeek(codProjectSelected, Date.valueOf("2013-11-01"), Date.valueOf("2013-11-05"));
+			List<DrawingReleasedInOE> listPlanned = drawingReleasedInOEService.selectPlannedDwgWeek(codProjectSelected, minDate, maxDate);
+			List<DrawingReleasedInOE> listReleased = drawingReleasedInOEService.selectReleasedDwgWeek(codProjectSelected, minDate, maxDate);
 			
 			List<String> cateListPlanned = new ArrayList<String>();
 			List<Number> qtyPnListPlanned = new ArrayList<Number>();
@@ -659,6 +659,30 @@ public class DashboardBean implements Serializable {
 
 	public void setDbtSelected(String dbtSelected) {
 		this.dbtSelected = dbtSelected;
+	}
+
+	public Integer getPeriodSelected() {
+		return periodSelected;
+	}
+
+	public void setPeriodSelected(Integer periodSelected) {
+		this.periodSelected = periodSelected;
+	}
+
+	public Date getMinDate() {
+		return minDate;
+	}
+
+	public void setMinDate(Date minDate) {
+		this.minDate = minDate;
+	}
+
+	public Date getMaxDate() {
+		return maxDate;
+	}
+
+	public void setMaxDate(Date maxDate) {
+		this.maxDate = maxDate;
 	}
 
 }

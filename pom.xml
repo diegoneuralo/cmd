@@ -230,7 +230,160 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<version>5.1.20</version>
 		</dependency>
-            
+		
+		<!-- Inicio das Dependencias básicas para Seam faces -->
+		
+		<!-- Praticamente todos os modulos do Seam 3 precisam do Solder -->     
+        <dependency>
+            <groupId>org.jboss.solder</groupId>
+            <artifactId>solder-impl</artifactId>
+            <version>3.1.1.Final</version>
+        </dependency>
+        
+        <!-- Seam Faces precisa do seam-international(mesmo que você não use para nada) -->       
+        <dependency>
+            <groupId>org.jboss.seam.international</groupId>
+            <artifactId>seam-international</artifactId>
+            <version>3.1.0.Final</version>
+            <scope>compile</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.jboss.solder</groupId>
+                    <artifactId>solder-api</artifactId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>solder-impl</artifactId>
+                    <groupId>org.jboss.solder</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        
+        <!-- Seam International precisa do joda-time -->        
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+            <version>2.1</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <!-- Seam Faces precisa do seam-transaction(mesmo que você não use para nada) -->     
+        <dependency>
+            <groupId>org.jboss.seam.transaction</groupId>
+            <artifactId>seam-transaction</artifactId>
+            <version>3.1.0.Final</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.jboss.solder</groupId>
+                    <artifactId>solder-api</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.jboss.solder</groupId>
+                    <artifactId>solder-impl</artifactId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>jboss-servlet-api_3.0_spec</artifactId>
+                    <groupId>org.jboss.spec.javax.servlet</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        
+        <!-- Seam Faces precisa do seam-persistence(mesmo que você não use para nada) -->     
+        <dependency>
+            <groupId>org.jboss.seam.persistence</groupId>
+            <artifactId>seam-persistence</artifactId>
+            <version>3.1.0.Final</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.jboss.solder</groupId>
+                    <artifactId>solder-api</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.jboss.solder</groupId>
+                    <artifactId>solder-impl</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.jboss.seam.transaction</groupId>
+                    <artifactId>seam-transaction</artifactId>
+                </exclusion>                
+                <exclusion>
+                    <groupId>org.jboss.seam.transaction</groupId>
+                    <artifactId>seam-transaction-api</artifactId>
+                </exclusion>                
+            </exclusions>
+        </dependency>
+        
+        <!-- Seam Faces precisa do seam-security(mesmo que você não use para nada) -->        
+        <dependency>
+            <groupId>org.jboss.seam.security</groupId>
+            <artifactId>seam-security</artifactId>
+            <version>3.1.0.Final</version>
+            <scope>compile</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.jboss.seam.persistence</groupId>
+                    <artifactId>seam-persistence</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.jboss.seam.solder</groupId>
+                    <artifactId>seam-solder</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.jboss.solder</groupId>
+                    <artifactId>solder-api</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.jboss.solder</groupId>
+                    <artifactId>solder-impl</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.jboss.seam.international</groupId>
+                    <artifactId>seam-international-api</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.jboss.seam.international</groupId>
+                    <artifactId>seam-international</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        
+        <!-- Seam Faces precisa do prettyfaces(mesmo que você não use para nada) -->
+        <dependency>
+            <groupId>com.ocpsoft</groupId>
+            <artifactId>prettyfaces-jsf2</artifactId>
+            <version>3.3.3</version>
+            <scope>compile</scope>
+        </dependency>
+		
+		<!-- Seam Faces precisa do drools(mesmo que você não use para nada) -->
+        <dependency>
+            <groupId>org.drools</groupId>
+            <artifactId>knowledge-api</artifactId>
+            <version>5.4.0.Final</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <!-- Enfim, o Seam Faces -->
+        <dependency>
+            <groupId>org.jboss.seam.faces</groupId>
+            <artifactId>seam-faces</artifactId>
+            <version>3.1.0.Final</version>
+            <scope>compile</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.jboss.solder</groupId>
+                    <artifactId>solder-api</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.jboss.solder</groupId>
+                    <artifactId>solder-impl</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.jboss.seam.international</groupId>
+                    <artifactId>seam-international-api</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!-- Fim das Dependencias básicas para Seam faces -->           
 
     </dependencies>
     
