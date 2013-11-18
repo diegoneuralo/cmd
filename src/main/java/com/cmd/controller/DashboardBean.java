@@ -11,6 +11,7 @@ import java.util.Iterator;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -95,8 +96,8 @@ public class DashboardBean implements Serializable {
 	}
 	
 	@PostConstruct
-	public void init(){
-		selectRelesedOEs(false);
+	public void init(){		
+		selectRelesedOEs(true);
 		selectDelayedEOs();
 		selectChangeDocumentType();
 		selectReleasedDrawing();
@@ -185,31 +186,38 @@ public class DashboardBean implements Serializable {
 	}
 
 	public void selectRelesedOEs(boolean bool) {
+		List<DrawingReleasedInOE> listPlanned = new ArrayList<DrawingReleasedInOE>();
+		List<DrawingReleasedInOE> listReleased = new ArrayList<DrawingReleasedInOE>();
+		
+		List<String> cateListPlanned = new ArrayList<String>();
+		List<Number> qtyPnListPlanned = new ArrayList<Number>();
+		
+		List<Number> qtyPnListPlannedAccum = new ArrayList<Number>();
+		List<Number> qtyPnListReleased = new ArrayList<Number>();
+		List<Number> qtyPnListReleasedAccum = new ArrayList<Number>();
+		
 		if(bool){
-			List<DrawingReleasedInOE> listPlanned = drawingReleasedInOEService.selectPlannedDwgWeek(codProjectSelected, minDate, maxDate);
-			List<DrawingReleasedInOE> listReleased = drawingReleasedInOEService.selectReleasedDwgWeek(codProjectSelected, minDate, maxDate);
+			listPlanned = drawingReleasedInOEService.selectPlannedDwgWeek("A1M", Date.valueOf("2013-11-11"), Date.valueOf("2013-12-19"));
+			listReleased = drawingReleasedInOEService.selectReleasedDwgWeek("A1M", Date.valueOf("2013-11-11"), Date.valueOf("2013-12-19"));
 			
-			List<String> cateListPlanned = new ArrayList<String>();
-			List<Number> qtyPnListPlanned = new ArrayList<Number>();
+			
 			for(DrawingReleasedInOE drawingReleasedInOE : listPlanned){
 				cateListPlanned.add(drawingReleasedInOE.getCategory());
 				qtyPnListPlanned.add(drawingReleasedInOE.getQtyPn());
-			}
+			}			
 			
-			List<Number> qtyPnListPlannedAccum = new ArrayList<Number>();
 			for(DrawingReleasedInOE drawingReleasedInOE : listPlanned){
 				qtyPnListPlannedAccum.add(drawingReleasedInOE.getQtyPn());
-			}
+			}			
 			
-			List<Number> qtyPnListReleased = new ArrayList<Number>();
 			for(DrawingReleasedInOE drawingReleasedInOE : listReleased){
 				qtyPnListReleased.add(drawingReleasedInOE.getQtyPn());
-			}
+			}			
 			
-			List<Number> qtyPnListReleasedAccum = new ArrayList<Number>();
 			for(DrawingReleasedInOE drawingReleasedInOE : listReleased){
 				qtyPnListReleasedAccum.add(drawingReleasedInOE.getQtyPnAccum());
 			}
+		}
 	
 			theme = new DarkBlueTheme();
 			Options options = new Options();
@@ -268,15 +276,6 @@ public class DashboardBean implements Serializable {
 			options.addSeries(series4);
 	
 			setRelesedOEs(options);
-		}else{
-			theme = new DarkBlueTheme();
-			Options options = new Options();
-			ChartOptions chartOptions = new ChartOptions();
-			options.setChartOptions(chartOptions);
-			options.setTitle(new Title(codProjectSelected));
-			options.setSubtitle(new Title("EO's Release by Week of 2013"));
-			setRelesedOEs(options);
-		}
 	}
 
 	public void selectChangeDocumentType() {
