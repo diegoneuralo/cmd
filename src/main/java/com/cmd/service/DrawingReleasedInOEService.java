@@ -41,7 +41,7 @@ public class DrawingReleasedInOEService implements IDrawingReleasedInOEService,
 		for (Object[] row : result) {
 			DrawingReleasedInOE drawingReleasedInOE = new DrawingReleasedInOE();
 			drawingReleasedInOE.setCodProgram((String) row[0]);
-			drawingReleasedInOE.setQtyPn(((BigInteger)row[1]).intValue());
+			drawingReleasedInOE.setQtyPn(Integer.valueOf(row[1].toString()));
 			drawingReleasedInOE.setQtyPnAccum(Integer.valueOf(row[2].toString()));
 			drawingReleasedInOE.setCategory(row[3].toString());
 			listDrawingReleasedInOEs.add(drawingReleasedInOE);
@@ -62,7 +62,7 @@ public class DrawingReleasedInOEService implements IDrawingReleasedInOEService,
 		for (Object[] row : result) {
 			DrawingReleasedInOE drawingReleasedInOE = new DrawingReleasedInOE();
 			drawingReleasedInOE.setCodProgram((String) row[0]);
-			drawingReleasedInOE.setQtyPn(((BigInteger)row[1]).intValue());
+			drawingReleasedInOE.setQtyPn(Integer.valueOf(row[1].toString()));
 			drawingReleasedInOE.setQtyPnAccum(Integer.valueOf(row[2].toString()));
 			drawingReleasedInOE.setCategory(row[3].toString());
 			listDrawingReleasedInOEs.add(drawingReleasedInOE);
@@ -83,7 +83,7 @@ public class DrawingReleasedInOEService implements IDrawingReleasedInOEService,
 		for (Object[] row : result) {
 			DrawingReleasedInOE drawingReleasedInOE = new DrawingReleasedInOE();
 			drawingReleasedInOE.setCodProgram((String) row[0]);
-			drawingReleasedInOE.setQtyPn(((BigInteger)row[1]).intValue());
+			drawingReleasedInOE.setQtyPn(Integer.valueOf(row[1].toString()));
 			drawingReleasedInOE.setQtyPnAccum(Integer.valueOf(row[2].toString()));
 			drawingReleasedInOE.setCategory(row[3].toString());
 			listDrawingReleasedInOEs.add(drawingReleasedInOE);
@@ -104,7 +104,7 @@ public class DrawingReleasedInOEService implements IDrawingReleasedInOEService,
 		for (Object[] row : result) {
 			DrawingReleasedInOE drawingReleasedInOE = new DrawingReleasedInOE();
 			drawingReleasedInOE.setCodProgram((String) row[0]);
-			drawingReleasedInOE.setQtyPn(((BigInteger)row[1]).intValue());
+			drawingReleasedInOE.setQtyPn(Integer.valueOf(row[1].toString()));
 			drawingReleasedInOE.setQtyPnAccum(Integer.valueOf(row[2].toString()));
 			drawingReleasedInOE.setCategory(row[3].toString());
 			listDrawingReleasedInOEs.add(drawingReleasedInOE);
@@ -125,7 +125,7 @@ public class DrawingReleasedInOEService implements IDrawingReleasedInOEService,
 		for (Object[] row : result) {
 			DrawingReleasedInOE drawingReleasedInOE = new DrawingReleasedInOE();
 			drawingReleasedInOE.setCodProgram((String) row[0]);
-			drawingReleasedInOE.setQtyPn(((BigInteger)row[1]).intValue());
+			drawingReleasedInOE.setQtyPn(Integer.valueOf(row[1].toString()));
 			drawingReleasedInOE.setQtyPnAccum(Integer.valueOf(row[2].toString()));
 			drawingReleasedInOE.setCategory(row[3].toString());
 			listDrawingReleasedInOEs.add(drawingReleasedInOE);
@@ -146,7 +146,7 @@ public class DrawingReleasedInOEService implements IDrawingReleasedInOEService,
 		for (Object[] row : result) {
 			DrawingReleasedInOE drawingReleasedInOE = new DrawingReleasedInOE();
 			drawingReleasedInOE.setCodProgram((String) row[0]);
-			drawingReleasedInOE.setQtyPn(((BigInteger)row[1]).intValue());
+			drawingReleasedInOE.setQtyPn(Integer.valueOf(row[1].toString()));
 			drawingReleasedInOE.setQtyPnAccum(Integer.valueOf(row[2].toString()));
 			drawingReleasedInOE.setCategory(row[3].toString());
 			listDrawingReleasedInOEs.add(drawingReleasedInOE);

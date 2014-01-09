@@ -17,8 +17,11 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.cmd.model.Aircraft;
+import com.cmd.model.CurveRelease;
+import com.cmd.model.CurveReleaseSerie;
 import com.cmd.model.DrawingReleasedInOE;
 import com.cmd.service.interfaces.IAircraftService;
+import com.cmd.service.interfaces.ICurveReleaseService;
 import com.cmd.service.interfaces.IDrawingReleasedInOEService;
 import com.googlecode.wickedcharts.highcharts.options.Axis;
 import com.googlecode.wickedcharts.highcharts.options.Center;
@@ -72,6 +75,9 @@ public class DashboardBean implements Serializable {
 	@Inject
 	IAircraftService aircraftService;
 	
+	@Inject
+	ICurveReleaseService curveReleaseService;
+	
 	private Options options = new Options();
 	private Theme theme = new Theme();
 	private Options relesedOEs = new Options();
@@ -101,7 +107,7 @@ public class DashboardBean implements Serializable {
 		selectDelayedEOs();
 		selectChangeDocumentType();
 		selectReleasedDrawing();
-		selectReleaseCurveDrawing();
+		selectReleaseCurveDrawing(true);
 		selectNumberEOs();
 		selectManagementDispositionPCRs();
 	}
@@ -197,8 +203,8 @@ public class DashboardBean implements Serializable {
 		List<Number> qtyPnListReleasedAccum = new ArrayList<Number>();
 		
 		if(bool){
-			listPlanned = drawingReleasedInOEService.selectPlannedDwgWeek("A1M", Date.valueOf("2013-11-11"), Date.valueOf("2013-12-19"));
-			listReleased = drawingReleasedInOEService.selectReleasedDwgWeek("A1M", Date.valueOf("2013-11-11"), Date.valueOf("2013-12-19"));
+			listPlanned = drawingReleasedInOEService.selectPlannedDwgMonthly("0314", Date.valueOf("2013-09-01"), Date.valueOf("2013-12-31"));
+			listReleased = drawingReleasedInOEService.selectReleasedDwgMonthly("0314", Date.valueOf("2013-09-01"), Date.valueOf("2013-12-31"));
 			
 			
 			for(DrawingReleasedInOE drawingReleasedInOE : listPlanned){
@@ -222,6 +228,7 @@ public class DashboardBean implements Serializable {
 			theme = new DarkBlueTheme();
 			Options options = new Options();
 			ChartOptions chartOptions = new ChartOptions();
+			chartOptions.setZoomType(ZoomType.XY);
 			options.setChartOptions(chartOptions);
 			options.setTitle(new Title(codProjectSelected));
 			options.setSubtitle(new Title("EO's Release by Week of 2013"));
@@ -370,7 +377,36 @@ public class DashboardBean implements Serializable {
 		setReleasedDrawing(options);
 	}
 
-	public void selectReleaseCurveDrawing() {
+	public void selectReleaseCurveDrawing(boolean bool) {
+		
+		List<CurveReleaseSerie> listReleased = new ArrayList<CurveReleaseSerie>();
+		List<CurveReleaseSerie> listPlan = new ArrayList<CurveReleaseSerie>();
+		List<CurveReleaseSerie> listDane = new ArrayList<CurveReleaseSerie>();
+		
+		List<String> cateListLib = new ArrayList<String>();
+		List<Number> qtyPnListReleased = new ArrayList<Number>();
+		List<Number> qtyPnListPlan = new ArrayList<Number>();
+		List<Number> qtyPnListDane = new ArrayList<Number>();
+		
+		if(bool){
+			listReleased = curveReleaseService.selectCurveReleaseLibMonthly("0314", Date.valueOf("2013-09-01"), Date.valueOf("2013-12-31"));
+			listPlan = curveReleaseService.selectCurveReleasePlanMonthly("0314", Date.valueOf("2013-09-01"), Date.valueOf("2013-12-31"));
+			listDane = curveReleaseService.selectCurveReleaseDaneMonthly("0314", Date.valueOf("2013-09-01"), Date.valueOf("2013-12-31"));
+			
+			for(CurveReleaseSerie curveReleaseSerie : listReleased){
+				cateListLib.add(curveReleaseSerie.getCategory());
+				qtyPnListReleased.add(curveReleaseSerie.getQtyPn());
+			}
+			
+			for(CurveReleaseSerie curveReleaseSerie : listPlan){
+				qtyPnListPlan.add(curveReleaseSerie.getQtyPn());
+			}
+			
+			for(CurveReleaseSerie curveReleaseSerie : listDane){
+				qtyPnListDane.add(curveReleaseSerie.getQtyPn());
+			}
+		}
+		
 		theme = new DarkBlueTheme();
 		Options options = new Options();
 		ChartOptions chartOptions = new ChartOptions();
@@ -378,9 +414,10 @@ public class DashboardBean implements Serializable {
 		chartOptions.setType(SeriesType.LINE);
 		chartOptions.setMarginRight(130);
 		chartOptions.setMarginBottom(25);
+		chartOptions.setZoomType(ZoomType.XY);
 		options.setChartOptions(chartOptions);
 
-		Title title = new Title("A1M");
+		Title title = new Title(codProjectSelected);
 		title.setX(-20);
 		options.setTitle(title);
 
@@ -389,9 +426,7 @@ public class DashboardBean implements Serializable {
 		options.setSubtitle(subTitle);
 
 		Axis xAxis = new Axis();
-		xAxis.setCategories(Arrays
-				.asList(new String[] { "Jan/13",
-						"Feb/13", "Mar/13", "Apr/13", "May/13" }));
+		xAxis.setCategories(cateListLib);
 		
 		
 		options.setxAxis(xAxis);
@@ -417,18 +452,17 @@ public class DashboardBean implements Serializable {
 
 		Series<Number> series1 = new SimpleSeries();
 		series1.setName("Planned");
-		series1.setData(Arrays.asList(new Number[] { 7.0, 6.9, 9.5, 14.5, 18.2 }));
+		series1.setData(qtyPnListPlan);
 		options.addSeries(series1);
 
 		Series<Number> series2 = new SimpleSeries();
 		series2.setName("Released");
-		series2.setData(Arrays.asList(new Number[] { -0.2, 0.8, 5.7, 11.3,
-				17.0 }));
+		series2.setData(qtyPnListReleased);
 		options.addSeries(series2);
 
 		Series<Number> series3 = new SimpleSeries();
 		series3.setName("DANE");
-		series3.setData(Arrays.asList(new Number[] { -0.9, 0.6, 3.5, 8.4, 13.5 }));
+		series3.setData(qtyPnListDane);
 		options.addSeries(series3);
 		
 		setReleaseCurveDrawing(options);
