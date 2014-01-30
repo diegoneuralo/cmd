@@ -1,11 +1,18 @@
 package com.cmd.controller;
 
 import java.io.Serializable;
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
+import com.cmd.model.StatusOfAudit;
+import com.cmd.service.interfaces.IAircraftService;
+import com.cmd.service.interfaces.IStatusOfAuditService;
 import com.googlecode.wickedcharts.highcharts.options.Axis;
 import com.googlecode.wickedcharts.highcharts.options.ChartOptions;
 import com.googlecode.wickedcharts.highcharts.options.Events;
@@ -34,7 +41,13 @@ public class DashboardConfigurationEngineering implements Serializable{
 	/**
 	 * 
 	 */
+	
+	
 	private static final long serialVersionUID = 1L;
+	
+	@Inject
+	IStatusOfAuditService statusOfAuditService;
+	
 	private Options options = new Options();
 	private Theme theme = new Theme();
 	private Options statusOfAudits = new Options();
@@ -57,14 +70,106 @@ public class DashboardConfigurationEngineering implements Serializable{
 	}
 	
 	public void selectStatusOfAudits() {
+		
+		List<StatusOfAudit> listStatusOfAuditNew = statusOfAuditService.selectAuditNew("A1M", "A1M 03", Date.valueOf("2013-01-01"), Date.valueOf("2015-01-01"));
+		List<StatusOfAudit> listStatusOfAuditLate = statusOfAuditService.selectAuditLate("A1M", "A1M 03", Date.valueOf("2013-01-01"), Date.valueOf("2015-01-01"));
+		List<StatusOfAudit> listStatusOfAuditAnswered = statusOfAuditService.selectAuditAnswered("A1M", "A1M 03", Date.valueOf("2013-01-01"), Date.valueOf("2015-01-01"));
+		
+		String program = null;
+		String dbt = null;
+		List<String> category = new ArrayList<String>();
+		List<Number> qtyNew = new ArrayList<Number>();
+		List<Number> qtyLate = new ArrayList<Number>();
+		List<Number> qtyAnswered = new ArrayList<Number>();
+
+		for(StatusOfAudit statusOfAudit : listStatusOfAuditNew){
+			program = statusOfAudit.getCodProgram();
+			dbt = statusOfAudit.getDbt();
+			qtyNew.add(statusOfAudit.getQty());
+		}
+		
+		for(StatusOfAudit statusOfAudit : listStatusOfAuditLate){
+			qtyLate.add(statusOfAudit.getQty());
+		}
+		
+		for(StatusOfAudit statusOfAudit : listStatusOfAuditAnswered){
+			category.add(statusOfAudit.getTypeAudit());
+			qtyAnswered.add(statusOfAudit.getQty());
+		}
+		
+		
 		theme = new DarkBlueTheme();
 		Options options = new Options();
 		ChartOptions chartOptions = new ChartOptions();
 		options.setChartOptions(chartOptions.setType(SeriesType.COLUMN));
  
-		options.setTitle(new Title("Status of Audits - A1M"));
+		options.setTitle(new Title("Status of Audits - "+program));
  
-		options.setSubtitle(new Title("Status Of Audits - 2013"));
+		options.setSubtitle(new Title("DBT:"+dbt+" - Between: "+Date.valueOf("2013-01-01")+" and "+Date.valueOf("2015-01-01")));
+ 
+		options.setxAxis(new Axis()
+        .setCategories(category));
+ 
+		options.setyAxis(new Axis()
+        .setMin(0)
+        .setTitle(new Title("Qty")));
+ 
+		options.setLegend(new Legend()
+        .setLayout(LegendLayout.VERTICAL)
+        .setBackgroundColor(new HexColor("#FFFFFF"))
+        .setAlign(HorizontalAlignment.LEFT)
+        .setVerticalAlign(VerticalAlignment.TOP)
+        .setX(100)
+        .setY(70)
+        .setFloating(Boolean.TRUE)
+        .setShadow(Boolean.TRUE));
+ 
+		options.setTooltip(new Tooltip()
+        .setFormatter(new Function()
+            .setFunction(" return ''+ this.x +': '+ this.y +' Qty';")));
+		
+		options.setPlotOptions(new PlotOptionsChoice()
+        .setSeries(new PlotOptions()
+        .setPointPadding(0.2f)
+        .setBorderWidth(0)));
+
+ 
+		options.addSeries(new SimpleSeries()
+        .setName("New")
+        .setData(qtyNew));
+ 
+		options.addSeries(new SimpleSeries()
+        .setName("Late")
+        .setData(qtyLate));
+		
+		options.addSeries(new SimpleSeries()
+        .setName("Answered")
+        .setData(qtyAnswered));		
+		
+		setStatusOfAudits(options);
+	}
+	
+public void selectStatusOfAuditsWithClick() {
+		
+		List<StatusOfAudit> listStatusOfAuditNew = statusOfAuditService.selectAuditNew("A1M", "A1M 03", Date.valueOf("2013-01-01"), Date.valueOf("2015-01-01"));
+		
+		String program = null;
+		List<Number> qty = new ArrayList<Number>();
+
+		for(StatusOfAudit statusOfAudit : listStatusOfAuditNew){
+			program = statusOfAudit.getCodProgram();
+			qty.add(statusOfAudit.getQty());
+		}
+		
+		
+		theme = new DarkBlueTheme();
+		Options options = new Options();
+		ChartOptions chartOptions = new ChartOptions();
+		options.setChartOptions(chartOptions.setType(SeriesType.COLUMN));
+ 
+		options.setTitle(new Title("Status of Audits - "+program));
+ 
+		options.setSubtitle(new Title("Status Of Audits"));
  
 		options.setxAxis(new Axis()
         .setCategories("Items without Component", "PSA", "GFE Not Found", "Items G without R", "Items R without RD", "SAP released and not released VPM", "VPM released and not released SAP"));
@@ -346,7 +451,7 @@ public class DashboardConfigurationEngineering implements Serializable{
 		options.setSubtitle(new Title("Improvement Projects - 2013"));
  
 		options.setxAxis(new Axis()
-        .setCategories("Congelamento da EPRO", "Gestão da EPRO", "Configuração Série Curta", "Gestão de Configuração de Fornecedores", "Confiabilidade EPRO AMX"));
+        .setCategories("Congelamento da EPRO", "Gestï¿½o da EPRO", "Configuraï¿½ï¿½o Sï¿½rie Curta", "Gestï¿½o de Configuraï¿½ï¿½o de Fornecedores", "Confiabilidade EPRO AMX"));
  
 		options.setyAxis(new Axis()
         .setMin(0)

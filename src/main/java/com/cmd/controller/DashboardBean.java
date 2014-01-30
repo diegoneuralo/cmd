@@ -5,8 +5,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
-import java.sql.Date;
 import java.util.Iterator;
 
 import javax.annotation.PostConstruct;
@@ -104,12 +104,13 @@ public class DashboardBean implements Serializable {
 	@PostConstruct
 	public void init(){		
 		selectRelesedOEs(true);
-		selectDelayedEOs();
-		selectChangeDocumentType();
-		selectReleasedDrawing();
 		selectReleaseCurveDrawing(true);
-		selectNumberEOs();
-		selectManagementDispositionPCRs();
+	}
+	
+	
+	public void requestInformation(){
+		selectRelesedOEs(true);
+		selectReleaseCurveDrawing(true);
 	}
 	
 	public List<String> listCodProject(){
@@ -203,17 +204,19 @@ public class DashboardBean implements Serializable {
 		List<Number> qtyPnListReleasedAccum = new ArrayList<Number>();
 		
 		if(bool){
-			listPlanned = drawingReleasedInOEService.selectPlannedDwgMonthly("0314", Date.valueOf("2013-09-01"), Date.valueOf("2013-12-31"));
-			listReleased = drawingReleasedInOEService.selectReleasedDwgMonthly("0314", Date.valueOf("2013-09-01"), Date.valueOf("2013-12-31"));
+			
+			Date teste = this.maxDate;
+			listPlanned = drawingReleasedInOEService.selectPlannedDwgWeek(codProjectSelected, getMinDate(), teste);
+			listReleased = drawingReleasedInOEService.selectReleasedDwgWeek(codProjectSelected, getMinDate(), getMaxDate());
 			
 			
 			for(DrawingReleasedInOE drawingReleasedInOE : listPlanned){
-				cateListPlanned.add(drawingReleasedInOE.getCategory());
+				cateListPlanned.add(drawingReleasedInOE.getCategory());				
 				qtyPnListPlanned.add(drawingReleasedInOE.getQtyPn());
 			}			
 			
 			for(DrawingReleasedInOE drawingReleasedInOE : listPlanned){
-				qtyPnListPlannedAccum.add(drawingReleasedInOE.getQtyPn());
+				qtyPnListPlannedAccum.add(drawingReleasedInOE.getQtyPnAccum());
 			}			
 			
 			for(DrawingReleasedInOE drawingReleasedInOE : listReleased){
@@ -389,9 +392,9 @@ public class DashboardBean implements Serializable {
 		List<Number> qtyPnListDane = new ArrayList<Number>();
 		
 		if(bool){
-			listReleased = curveReleaseService.selectCurveReleaseLibMonthly("0314", Date.valueOf("2013-09-01"), Date.valueOf("2013-12-31"));
-			listPlan = curveReleaseService.selectCurveReleasePlanMonthly("0314", Date.valueOf("2013-09-01"), Date.valueOf("2013-12-31"));
-			listDane = curveReleaseService.selectCurveReleaseDaneMonthly("0314", Date.valueOf("2013-09-01"), Date.valueOf("2013-12-31"));
+			listReleased = curveReleaseService.selectCurveReleaseLibMonthly(codProjectSelected, getMinDate(), getMaxDate());
+			listPlan = curveReleaseService.selectCurveReleasePlanMonthly(codProjectSelected, getMinDate(), getMaxDate());
+			listDane = curveReleaseService.selectCurveReleaseDaneMonthly(codProjectSelected, getMinDate(), getMaxDate());
 			
 			for(CurveReleaseSerie curveReleaseSerie : listReleased){
 				cateListLib.add(curveReleaseSerie.getCategory());
